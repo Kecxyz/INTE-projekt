@@ -1,7 +1,9 @@
-package se.ariful;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import se.ariful.ASTNode;
+import se.ariful.Environment;
+import se.ariful.VarNode;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InterpreterTest {
