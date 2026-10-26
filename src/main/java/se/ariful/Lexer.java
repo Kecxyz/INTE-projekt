@@ -1,0 +1,202 @@
+package se.ariful;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Lexer {
+    private final String source;
+
+    private int position = 0;
+    private int line = 1;
+    private int column = 1;
+
+    public Lexer(String source) {
+        this.source = source;
+    }
+
+    private boolean isAtEnd() {
+        return position >= source.length();
+    }
+
+    private char peek() {
+        if (isAtEnd()) {
+            return '\0';
+        }
+        return source.charAt(position);
+    }
+
+    private void advance() {
+        char current = source.charAt(position);
+        position++;
+
+        if (current == '\n') {
+            line++;
+            column = 1;
+        } else {
+            column++;
+        }
+
+    }
+
+    private Token readInteger() {
+        int start = position;
+        int startLine = line;
+        int startColumn = column;
+
+        while (!isAtEnd() && Character.isDigit(peek())) {
+            advance();
+        }
+
+        String value = source.substring(start, position);
+
+        return new Token(
+                TokenType.INTEGER, value, startLine, startColumn
+        );
+    }
+
+    private Token readIdentifier() {
+        int start = position;
+        int startLine = line;
+        int startColumn = column;
+
+        while (!isAtEnd() && (Character.isLetterOrDigit(peek()) || peek() == '_')) {
+            advance();
+        }
+
+        String value = source.substring(start, position);
+
+        TokenType type = switch (value) {
+            case "let" -> TokenType.LET;
+            case "if" -> TokenType.IF;
+            case "else" -> TokenType.ELSE;
+            case "while" -> TokenType.WHILE;
+            case "print" -> TokenType.PRINT;
+            default -> TokenType.IDENTIFIER;
+        };
+
+        return new Token(type, value, startLine, startColumn);
+    }
+
+    private Token readString() {
+        advance();
+        int start = position;
+        int startLine = line;
+        int startColumn = column;
+
+        while (!isAtEnd() && peek() != '"') {
+            advance();
+        }
+
+        if (isAtEnd()) {
+            throw new LexerException("Unterminated string at" + startLine + ":" + startColumn);
+        }
+        String value = source.substring(start, position);
+
+        advance();
+
+        return new Token(TokenType.STRING, value, startLine, startColumn);
+    }
+
+    public List<Token> tokenize() {
+        List<Token> tokens = new ArrayList<>();
+
+        while (!isAtEnd()) {
+            char current = peek();
+
+            if (Character.isWhitespace(current)) {
+                advance();
+                continue;
+            }
+
+            if (Character.isDigit(current)) {
+                tokens.add(readInteger());
+                continue;
+            }
+
+            if (Character.isLetter(current) || current == '_') {
+                tokens.add(readIdentifier());
+                continue;
+            }
+
+            int tokenLine = line;
+            int tokenColumn = column;
+
+            switch (current) {
+                case '+' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.PLUS, "+", tokenLine, tokenColumn));
+                }
+                case '-' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.MINUS, "-", tokenLine, tokenColumn));
+                }
+                case '=' -> {
+                    advance();
+                    if (!isAtEnd() && peek() == '=') {
+                        advance();
+                        tokens.add(new Token(TokenType.EQUAL_EQUAL, "==", tokenLine, tokenColumn));
+                    } else {
+                        tokens.add(new Token(TokenType.ASSIGN, "=", tokenLine, tokenColumn));
+                    }
+                }
+                case ';' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.SEMICOLON, ";", tokenLine, tokenColumn));
+                }
+                case '(' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.LEFT_PAREN, "(", tokenLine, tokenColumn));
+                }
+                case ')' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.RIGHT_PAREN, ")", tokenLine, tokenColumn));
+                }
+                case '{' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.LEFT_BRACE, "{", tokenLine, tokenColumn));
+                }
+                case '}' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.RIGHT_BRACE, "}", tokenLine, tokenColumn));
+                }
+                case '<' -> {
+                    advance();
+                    if (!isAtEnd() && peek() == '=') {
+                        advance();
+                        tokens.add(new Token(TokenType.LESS_EQUAL, "<=", tokenLine, tokenColumn));
+                    } else {
+                        tokens.add(new Token(TokenType.LESS_THAN, "<", tokenLine, tokenColumn));
+                    }
+                }
+                case '>' -> {
+                    advance();
+                    if (!isAtEnd() && peek() == '=') {
+                        advance();
+                        tokens.add(new Token(TokenType.GREATER_EQUAL, ">=", tokenLine, tokenColumn));
+                    } else {
+                        tokens.add(new Token(TokenType.GREATER_THAN, ">", tokenLine, tokenColumn));
+                    }
+                }
+                case '!' -> {
+                    advance();
+                    if (!isAtEnd() && peek() == '=') {
+                        advance();
+                        tokens.add(new Token(TokenType.NOT_EQUAL, "!=", tokenLine, tokenColumn));
+                    } else {
+                        throw new LexerException(
+                                "Unexpected character '!' at " + tokenLine + ":" + tokenColumn
+                        );
+                    }
+                }
+                case '"' -> tokens.add(readString());
+
+                default -> throw new LexerException(
+                        "Unexpected character '" + current + "' at "
+                                + tokenLine + ":" + tokenColumn
+                );
+            }
+        }
+        tokens.add(new Token(TokenType.EOF, "", line, column));
+        return tokens;
+    }
+}
