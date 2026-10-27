@@ -122,4 +122,16 @@ class ParserTest {
         assertTrue(error.getMessage().contains("1:4"));
         
     }
+
+    @Test 
+    void parsesStringLiteral() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.STRING, "Hello", 1, 2),
+            new Token(TokenType.EOF, "", 1, 8)
+        );
+        Parser parser = new Parser(tokens);
+        ParserExpression result = parser.parseExpression();
+
+        assertEquals(new ParserExpression.StringLiteral("Hello"), result);
+    }
 }

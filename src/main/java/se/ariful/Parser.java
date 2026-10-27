@@ -31,6 +31,12 @@ public class Parser {
             return new ParserExpression.IntegerLiteral(value);
         }
 
+        if(token.getType() == TokenType.STRING) {
+            advance();
+
+            return new ParserExpression.StringLiteral(token.getValue());
+        }
+
         throw new ParserException(
             "Förväntqade ett heltal vid "
                 + token.getLine() + ":" + token.getColumn() + ", fick " + token.getType()

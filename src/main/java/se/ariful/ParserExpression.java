@@ -9,4 +9,8 @@ public interface ParserExpression {
     record BinaryExpression(ParserExpression left, TokenType operator, ParserExpression right) implements ParserExpression {
 
     }
+
+    record StringLiteral(String value) implements ParserExpression {
+    }
+
 }
