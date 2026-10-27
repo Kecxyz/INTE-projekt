@@ -13,9 +13,9 @@ class EnvironmentTest {
 
         Environment env = new Environment();
 
-        env.set("x", 10);
+        env.setVariable("x", 10);
 
-        assertEquals(10, env.get("x"));
+        assertEquals(10, env.getVariable("x"));
     }
     @Test
     void shouldThrowExceptionForUnknownVariable() {
@@ -24,13 +24,13 @@ class EnvironmentTest {
 
         assertThrows(
                 RuntimeException.class,
-                () -> env.get("unknown")
+                () -> env.getVariable("unknown")
         );
     }
 
     @Test
     void shouldPrint() {
         Environment env = new Environment();
-        env.print("Hello");
+        env.printOutput("Hello");
     }
 }
