@@ -57,4 +57,25 @@ class ParserTest {
         
         assertEquals(expected, result);
     }
+
+    @Test
+    void parsesSubtraction() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.INTEGER, "10", 1, 1),
+            new Token(TokenType.MINUS, "-", 1, 4),
+            new Token(TokenType.INTEGER, "3", 1, 6),
+            new Token(TokenType.EOF, "", 1, 7)
+        );
+
+        Parser parser = new Parser(tokens);
+        ParserExpression result = parser.parseExpression();
+        ParserExpression exprected = new ParserExpression.BinaryExpression(
+            new ParserExpression.IntegerLiteral(10),
+            TokenType.MINUS,
+            new ParserExpression.IntegerLiteral(3)
+        );
+
+        assertEquals(exprected, result);
+        
+    }
 }
