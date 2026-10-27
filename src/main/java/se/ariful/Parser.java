@@ -31,7 +31,7 @@ public class Parser {
     public ParserExpression parseExpression() {
         ParserExpression expression = parserPrimary();
 
-        while(tokens.get(current).getType() == TokenType.PLUS) {
+        while(tokens.get(current).getType() == TokenType.PLUS || tokens.get(current).getType() == TokenType.MINUS) {
             Token operator = tokens.get(current);
             current++;
 
