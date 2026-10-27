@@ -208,4 +208,200 @@ class ParserIntegrationTest {
 
         assertTrue(error.getMessage().contains("';'"));
     }
+
+    @Test
+    void acceptsAssignmentStatement() {
+        Lexer lexer = new Lexer("price = price + 20;");
+        Parser parser = new Parser(lexer.tokenize());
+
+        assertDoesNotThrow(() -> parser.parseStatement());
+    }
+
+    @Test
+    void rejectsAssignmentWithoutEquals() {
+        Lexer lexer = new Lexer("price 100;");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseStatement()
+        );
+
+        assertTrue(error.getMessage().contains("'='"));
+    }
+
+    @Test
+    void acceptsPrintStatement() {
+        Lexer lexer = new Lexer("print(price + 20);");
+        Parser parser = new Parser(lexer.tokenize());
+
+        assertDoesNotThrow(() -> parser.parseStatement());
+    }
+
+    @Test
+    void rejectsPrintWithoutClosingParenthesis() {
+        Lexer lexer = new Lexer("print(price + 20;");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseStatement()
+        );
+
+        assertTrue(error.getMessage().contains("')'"));
+    }
+
+    @Test
+    void acceptsMultipleStatements() {
+        String source = """
+                let price = 100;
+                price = price + 20;
+                print(price);
+                """;
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void acceptsEmptyProgram() {
+        Parser parser = new Parser(new Lexer("").tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void rejectsUnexpectedTokenAfterStatement() {
+        Lexer lexer = new Lexer("let price = 100; 42");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseProgram()
+        );
+
+        assertTrue(error.getMessage().contains("INTEGER"));
+    }
+
+    @Test
+    void acceptsNestedBlocks() {
+        String source = """
+                {
+                    let price = 100;
+                    {
+                        price = price + 20;
+                        print(price);
+                    }
+                }
+                """;
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void acceptsEmptyBlock() {
+        Parser parser = new Parser(new Lexer("{}").tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void rejectsBlockWithoutClosingBrace() {
+        Lexer lexer = new Lexer("{ let price = 100;");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseProgram()
+        );
+
+        assertTrue(error.getMessage().contains("'}'"));
+    }
+
+    @Test
+    void acceptsIfWithoutElse() {
+        String source = """
+                if (price >= 100) {
+                    print(price);
+                }
+                """;
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void acceptsIfElse() {
+        String source = """
+                if (price >= 100) {
+                    print("Dyrt");
+                } else {
+                    print("Billigt");
+                }
+                """;
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void rejectsIfWithoutCondition() {
+        Parser parser = new Parser(new Lexer("if () {}").tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseProgram()
+        );
+
+        assertTrue(error.getMessage().contains("RIGHT_PAREN"));
+    }
+
+    @Test
+    void acceptsWhileStatement() {
+        String source = """
+                let count = 3;
+                while (count > 0) {
+                    print(count);
+                    count = count - 1;
+                }
+                """;
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void acceptsWhileInsideIf() {
+        String source = """
+                if (price > 0) {
+                    while (price > 0) {
+                        price = price - 1;
+                    }
+                }
+                """;
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        assertDoesNotThrow(() -> parser.parseProgram());
+    }
+
+    @Test
+    void rejectsWhileWithoutBlock() {
+        String source = "while (price > 0) print(price);";
+
+        Parser parser = new Parser(new Lexer(source).tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseProgram()
+        );
+
+        assertTrue(error.getMessage().contains("'{'"));
+    }
 }

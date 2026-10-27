@@ -72,7 +72,58 @@ public class Parser {
     }
 
 
+    public void parseProgram() {
+        while (peek().getType() != TokenType.EOF) {
+            parseStatement();
+        }
+
+        consume(
+                TokenType.EOF,
+                "Förväntade slut på programmet"
+        );
+    }
+
     public void parseStatement() {
+        if (peek().getType() == TokenType.LET) {
+            parseLetStatement();
+            return;
+        }
+
+        if (peek().getType() == TokenType.IDENTIFIER) {
+            parseAssignmentStatement();
+            return;
+        }
+
+        if (peek().getType() == TokenType.PRINT) {
+            parsePrintStatement();
+            return;
+        }
+
+        if (peek().getType() == TokenType.LEFT_BRACE) {
+            parseBlock();
+            return;
+        }
+
+        if (peek().getType() == TokenType.IF) {
+            parseIfStatement();
+            return;
+        }
+
+        if (peek().getType() == TokenType.WHILE) {
+            parseWhileStatement();
+            return;
+        }
+
+        Token token = peek();
+
+        throw new ParserException(
+                "Förväntade en instruktion vid "
+                        + token.getLine() + ":" + token.getColumn()
+                        + ", fick " + token.getType()
+        );
+    }
+
+    private void parseLetStatement() {
         consume(TokenType.LET, "Förväntade 'let'");
 
         consume(
@@ -80,19 +131,100 @@ public class Parser {
                 "Förväntade ett variabelnamn efter 'let'"
         );
 
+        consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
+
+        parseExpression();
+
+        consume(TokenType.SEMICOLON, "Förväntade ';' efter deklarationen");
+    }
+
+    private void parseAssignmentStatement() {
+        consume(TokenType.IDENTIFIER, "Förväntade ett variabelnamn");
+
+        consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
+
+        parseExpression();
+
+        consume(TokenType.SEMICOLON, "Förväntade ';' efter tilldelningen");
+    }
+
+    private void parseIfStatement() {
+        consume(TokenType.IF, "Förväntade 'if'");
+
         consume(
-                TokenType.ASSIGN,
-                "Förväntade '=' efter variabelnamnet"
+                TokenType.LEFT_PAREN,
+                "Förväntade '(' efter 'if'"
         );
 
         parseExpression();
 
         consume(
+                TokenType.RIGHT_PAREN,
+                "Förväntade ')' efter villkoret"
+        );
+
+        parseBlock();
+
+        if (peek().getType() == TokenType.ELSE) {
+            advance();
+            parseBlock();
+        }
+    }
+
+    private void parseWhileStatement() {
+        consume(TokenType.WHILE, "Förväntade 'while'");
+
+        consume(
+                TokenType.LEFT_PAREN,
+                "Förväntade '(' efter 'while'"
+        );
+
+        parseExpression();
+
+        consume(
+                TokenType.RIGHT_PAREN,
+                "Förväntade ')' efter villkoret"
+        );
+
+        parseBlock();
+    }
+
+    private void parsePrintStatement() {
+        consume(TokenType.PRINT, "Förväntade 'print'");
+
+        consume(
+                TokenType.LEFT_PAREN,
+                "Förväntade '(' efter 'print'"
+        );
+
+        parseExpression();
+
+        consume(
+                TokenType.RIGHT_PAREN,
+                "Förväntade ')' efter utskriftsuttrycket"
+        );
+
+        consume(
                 TokenType.SEMICOLON,
-                "Förväntade ';' efter deklarationen"
+                "Förväntade ';' efter utskriften"
         );
     }
-    
+
+    private void parseBlock() {
+        consume(TokenType.LEFT_BRACE, "Förväntade '{'");
+
+        while (peek().getType() != TokenType.RIGHT_BRACE
+                && peek().getType() != TokenType.EOF) {
+
+            parseStatement();
+        }
+
+        consume(
+                TokenType.RIGHT_BRACE,
+                "Förväntade '}' efter kodblocket"
+        );
+    }
+
     public ParserExpression parseCompleteExpression() {
         ParserExpression expression = parseExpression();
 
