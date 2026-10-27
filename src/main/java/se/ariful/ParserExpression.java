@@ -13,4 +13,8 @@ public interface ParserExpression {
     record StringLiteral(String value) implements ParserExpression {
     }
 
+    record VariableExpression(String name) implements ParserExpression{
+        
+    }
+
 }

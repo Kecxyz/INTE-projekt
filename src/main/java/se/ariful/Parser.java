@@ -37,6 +37,12 @@ public class Parser {
             return new ParserExpression.StringLiteral(token.getValue());
         }
 
+        if(token.getType() == TokenType.IDENTIFIER) {
+            advance();
+
+            return new ParserExpression.VariableExpression(token.getValue());
+        }
+
         throw new ParserException(
             "Förväntqade ett heltal vid "
                 + token.getLine() + ":" + token.getColumn() + ", fick " + token.getType()

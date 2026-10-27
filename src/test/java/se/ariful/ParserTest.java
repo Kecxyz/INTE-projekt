@@ -134,4 +134,16 @@ class ParserTest {
 
         assertEquals(new ParserExpression.StringLiteral("Hello"), result);
     }
+
+    @Test
+    void parsesVaribaleReference() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.IDENTIFIER, "price", 1, 1),
+            new Token(TokenType.EOF, "", 1, 6)
+        );
+
+        Parser parser = new Parser(tokens);
+        ParserExpression result = parser.parseExpression();
+        assertEquals(new ParserExpression.VariableExpression("price"), result);
+    }
 }
