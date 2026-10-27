@@ -73,9 +73,26 @@ public class Parser {
 
 
     public void parseStatement() {
-        throw new UnsupportedOperationException("Inte implementerat ännu");
-    }
+        consume(TokenType.LET, "Förväntade 'let'");
 
+        consume(
+                TokenType.IDENTIFIER,
+                "Förväntade ett variabelnamn efter 'let'"
+        );
+
+        consume(
+                TokenType.ASSIGN,
+                "Förväntade '=' efter variabelnamnet"
+        );
+
+        parseExpression();
+
+        consume(
+                TokenType.SEMICOLON,
+                "Förväntade ';' efter deklarationen"
+        );
+    }
+    
     public ParserExpression parseCompleteExpression() {
         ParserExpression expression = parseExpression();
 

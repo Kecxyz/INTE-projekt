@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class ParserIntegrationTest {
     @Test 
@@ -185,5 +186,26 @@ class ParserIntegrationTest {
                 );
 
         assertEquals(expected, parser.parseCompleteExpression());
+    }
+
+    @Test
+    void acceptsLetStatement() {
+        Lexer lexer = new Lexer("let price = 100 + 20;");
+        Parser parser = new Parser(lexer.tokenize());
+
+        assertDoesNotThrow(() -> parser.parseStatement());
+    }
+
+    @Test
+    void rejectsLetWithoutSemicolon() {
+        Lexer lexer = new Lexer("let price = 100 + 20");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseStatement()
+        );
+
+        assertTrue(error.getMessage().contains("';'"));
     }
 }
