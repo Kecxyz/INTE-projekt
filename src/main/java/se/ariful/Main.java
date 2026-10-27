@@ -14,7 +14,8 @@ public class Main {
 
         // 2. Parser turns tokens directly into your ASTNode objects
         Parser parser = new Parser(tokens);
-        ASTNode programAST = (ASTNode) parser.parseExpression();
+        ParserExpression expression = parser.parseExpression();
+        ASTNode programAST = ParserASTConverter.toAST(expression);
 
         // 3. Environment and Interpreter execute the AST via Visitor pattern
         Environment runtimeEnvironment = new Environment();
