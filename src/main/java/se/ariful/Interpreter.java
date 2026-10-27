@@ -1,129 +1,78 @@
 package se.ariful;
 
-// Evaluates AST using visitor pattern.
-public class Interpreter implements ASTVisitor<Object> {
-    private final Environment runtimeEnvironment;
+public class Interpreter {
 
-    public Interpreter(Environment runtimeEnvironment) {
-        this.runtimeEnvironment = runtimeEnvironment;
+    private final Environment env;
+
+    public Interpreter(Environment env) {
+        this.env = env;
     }
 
-    public Object interpret(ASTNode rootNode) {
-        return rootNode.accept(this);
+    // Main entry point for evaluating a ParserExpression tree
+    public Object interpret(ParserExpression expr) {
+        return evaluate(expr);
     }
 
-    @Override
-    public Object visit(VarNode node) {
-        return runtimeEnvironment.getVariable(node.getVariableName());
-    }
+    private Object evaluate(ParserExpression expr) {
+        if (expr instanceof ParserExpression.IntegerLiteral lit) {
+            return lit.value();
+        }
 
-    @Override
-    public Object visit(IntegerLiteralNode node) {
-        return node.getLiteralValue();
-    }
+        if (expr instanceof ParserExpression.StringLiteral lit) {
+            return lit.value();
+        }
 
-    @Override
-    public Object visit(StringLiteralNode node) {
-        return node.getLiteralValue();
-    }
+        if (expr instanceof ParserExpression.VariableExpression varExpr) {
+            return env.getVariable(varExpr.name());
+        }
 
-    @Override
-    public Object visit(BinaryOpNode node) {
-        Object leftVal = node.getLeftOperand().accept(this);
-        Object rightVal = node.getRightOperand().accept(this);
-
-        if (node.getOperatorSymbol() == '+') {
-            if (leftVal instanceof String || rightVal instanceof String) {
-                return String.valueOf(leftVal) + String.valueOf(rightVal);
+        if (expr instanceof ParserExpression.UnaryExpression unary) {
+            Object operandValue = evaluate(unary.operand());
+            if (unary.operator() == TokenType.MINUS) {
+                if (operandValue instanceof Integer i) {
+                    return -i;
+                }
             }
-            return (Integer) leftVal + (Integer) rightVal;
+            throw new RuntimeException("Unsupported unary operation");
         }
 
-        if (node.getOperatorSymbol() == '-') {
-            int leftInt = (Integer) leftVal;
-            int rightInt = (Integer) rightVal;
-            return leftInt - rightInt;
+        if (expr instanceof ParserExpression.BinaryExpression bin) {
+            Object left = evaluate(bin.left());
+            Object right = evaluate(bin.right());
+
+            TokenType op = bin.operator();
+
+            // Handle Addition / Concatenation
+            if (op == TokenType.PLUS) {
+                if (left instanceof String || right instanceof String) {
+                    return String.valueOf(left) + String.valueOf(right);
+                }
+                if (left instanceof Integer l && right instanceof Integer r) {
+                    return l + r;
+                }
+            }
+
+            // Handle Subtraction
+            if (op == TokenType.MINUS) {
+                if (left instanceof Integer l && right instanceof Integer r) {
+                    return l - r;
+                }
+            }
+
+            // Handle Comparisons (<, >, etc.)
+            if (left instanceof Integer l && right instanceof Integer r) {
+                return switch (op) {
+                    case LESS_THAN -> l < r;
+                    case GREATER_THAN -> l > r;
+                    case LESS_EQUAL -> l <= r;
+                    case GREATER_EQUAL -> l >= r;
+                    default -> throw new RuntimeException("Unknown operator: " + op);
+                };
+            }
+
+            throw new RuntimeException("Unsupported binary operation types");
         }
 
-        throw new RuntimeException("Unknown operator: " + node.getOperatorSymbol());
-    }
-
-    @Override
-    public Object visit(CompareNode node) {
-        Object leftVal = node.getLeftOperand().accept(this);
-        Object rightVal = node.getRightOperand().accept(this);
-
-        if (leftVal instanceof Integer && rightVal instanceof Integer) {
-            int leftInt = (Integer) leftVal;
-            int rightInt = (Integer) rightVal;
-            return switch (node.getComparisonOperator()) {
-                case "==" -> leftInt == rightInt;
-                case "!=" -> leftInt != rightInt;
-                case "<"  -> leftInt < rightInt;
-                case ">"  -> leftInt > rightInt;
-                case "<=" -> leftInt <= rightInt;
-                case ">=" -> leftInt >= rightInt;
-                default -> throw new RuntimeException("Unknown comparison: " + node.getComparisonOperator());
-            };
-        } else {
-            String leftStr = String.valueOf(leftVal);
-            String rightStr = String.valueOf(rightVal);
-            int comparisonResult = leftStr.compareTo(rightStr);
-            return switch (node.getComparisonOperator()) {
-                case "==" -> comparisonResult == 0;
-                case "!=" -> comparisonResult != 0;
-                case "<"  -> comparisonResult < 0;
-                case ">"  -> comparisonResult > 0;
-                default -> throw new RuntimeException("Invalid string comparison");
-            };
-        }
-    }
-
-    @Override
-    public Object visit(LetNode node) {
-        Object evaluatedValue = node.getExpressionNode().accept(this);
-        runtimeEnvironment.setVariable(node.getVariableName(), evaluatedValue);
-        return evaluatedValue;
-    }
-
-    @Override
-    public Object visit(AssignNode node) {
-        Object evaluatedValue = node.getExpressionNode().accept(this);
-        runtimeEnvironment.setVariable(node.getVariableName(), evaluatedValue);
-        return evaluatedValue;
-    }
-
-    @Override
-    public Object visit(PrintNode node) {
-        Object evaluatedValue = node.getExpressionNode().accept(this);
-        runtimeEnvironment.printOutput(evaluatedValue);
-        return null;
-    }
-
-    @Override
-    public Object visit(BlockNode node) {
-        for (ASTNode statement : node.getStatementList()) {
-            statement.accept(this);
-        }
-        return null;
-    }
-
-    @Override
-    public Object visit(IfNode node) {
-        boolean conditionResult = (Boolean) node.getConditionNode().accept(this);
-        if (conditionResult) {
-            node.getThenBranch().accept(this);
-        } else if (node.getElseBranch() != null) {
-            node.getElseBranch().accept(this);
-        }
-        return null;
-    }
-
-    @Override
-    public Object visit(WhileNode node) {
-        while ((Boolean) node.getConditionNode().accept(this)) {
-            node.getLoopBody().accept(this);
-        }
-        return null;
+        throw new RuntimeException("Unknown expression type");
     }
 }
