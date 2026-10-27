@@ -78,4 +78,48 @@ class ParserTest {
         assertEquals(exprected, result);
         
     }
+
+    @Test 
+    void groupsSubtractionFromLeft() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.INTEGER, "10", 1,1),
+            new Token(TokenType.MINUS, "-", 1,4),
+            new Token(TokenType.INTEGER, "3", 1,6),
+            new Token(TokenType.INTEGER, "-", 1,8),
+            new Token(TokenType.INTEGER, "2", 1,10),
+            new Token(TokenType.INTEGER, "", 1,11)
+        );
+
+        Parser parser = new Parser(tokens);
+        ParserExpression firstSubraction = new ParserExpression.BinaryExpression(
+                new ParserExpression.IntegerLiteral(10),
+                TokenType.MINUS,
+                new ParserExpression.IntegerLiteral(3)
+            );
+        
+            ParserExpression expected = new ParserExpression.BinaryExpression (
+                firstSubraction, TokenType.MINUS, new ParserExpression.IntegerLiteral(2)
+            );
+
+        assertEquals(expected, parser.parseExpression());
+    }
+
+    @Test
+    void rejectsMissingRightOperand() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.INTEGER, "3", 1, 1),
+            new Token(TokenType.PLUS, "+", 1, 3),
+            new Token(TokenType.EOF, "", 1, 4)
+        );
+
+        Parser parser = new Parser(tokens);
+
+        ParserException error = assertThrows(
+            ParserException.class, () -> parser.parseExpression()
+        );
+
+        assertTrue(error.getMessage().contains("EOF"));
+        assertTrue(error.getMessage().contains("1:4"));
+        
+    }
 }
