@@ -61,7 +61,7 @@ public class Parser {
     }
 
     public ParserExpression parseExpression() {
-        return parseComparison();
+        return parseEquality();
     }
 
     private ParserExpression parseComparison() {
@@ -74,6 +74,25 @@ public class Parser {
 
             Token operator = advance();
             ParserExpression right = parseAddition();
+
+            expression = new ParserExpression.BinaryExpression(
+                    expression,
+                    operator.getType(),
+                    right
+            );
+        }
+
+        return expression;
+    }
+
+    private ParserExpression parseEquality() {
+    ParserExpression expression = parseComparison();
+
+        while (peek().getType() == TokenType.EQUAL_EQUAL
+                || peek().getType() == TokenType.NOT_EQUAL) {
+
+            Token operator = advance();
+            ParserExpression right = parseComparison();
 
             expression = new ParserExpression.BinaryExpression(
                     expression,

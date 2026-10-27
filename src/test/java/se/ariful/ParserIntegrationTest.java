@@ -38,4 +38,90 @@ class ParserIntegrationTest {
 
         assertEquals(expected, parser.parseExpression());
     }
+
+    @Test
+    void parsesComparisonOperators() {
+        assertComparison("3 < 5", TokenType.LESS_THAN);
+        assertComparison("3 > 5", TokenType.GREATER_THAN);
+        assertComparison("3 <= 5", TokenType.LESS_EQUAL);
+        assertComparison("3 >= 5", TokenType.GREATER_EQUAL);
+    }
+
+    private void assertComparison(String source, TokenType operator) {
+        Lexer lexer = new Lexer(source);
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserExpression expected =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.IntegerLiteral(3),
+                        operator,
+                        new ParserExpression.IntegerLiteral(5)
+                );
+
+        assertEquals(expected, parser.parseExpression(), source);
+    }
+
+    @Test
+    void groupsArithmeticBeforeComparison() {
+        Lexer lexer = new Lexer("price + 20 >= total - 10");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserExpression left =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.VariableExpression("price"),
+                        TokenType.PLUS,
+                        new ParserExpression.IntegerLiteral(20)
+                );
+
+        ParserExpression right =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.VariableExpression("total"),
+                        TokenType.MINUS,
+                        new ParserExpression.IntegerLiteral(10)
+                );
+
+        ParserExpression expected =
+                new ParserExpression.BinaryExpression(
+                        left,
+                        TokenType.GREATER_EQUAL,
+                        right
+                );
+
+        assertEquals(expected, parser.parseExpression());
+    }
+
+    @Test
+    void parsesEqualityOperators() {
+        assertComparison("3 == 5", TokenType.EQUAL_EQUAL);
+        assertComparison("3 != 5", TokenType.NOT_EQUAL);
+    }
+
+    @Test
+    void groupsComparisonBeforeEquality() {
+        Lexer lexer = new Lexer("3 < 5 == 2 < 4");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserExpression left =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.IntegerLiteral(3),
+                        TokenType.LESS_THAN,
+                        new ParserExpression.IntegerLiteral(5)
+                );
+
+        ParserExpression right =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.IntegerLiteral(2),
+                        TokenType.LESS_THAN,
+                        new ParserExpression.IntegerLiteral(4)
+                );
+
+        ParserExpression expected =
+                new ParserExpression.BinaryExpression(
+                        left,
+                        TokenType.EQUAL_EQUAL,
+                        right
+                );
+
+        assertEquals(expected, parser.parseExpression());
+    }
 }
