@@ -14,6 +14,10 @@ public interface ParserExpression {
     }
 
     record VariableExpression(String name) implements ParserExpression{
+
+    }
+
+    record UnaryExpression(TokenType operator, ParserExpression operand) implements ParserExpression {
         
     }
 

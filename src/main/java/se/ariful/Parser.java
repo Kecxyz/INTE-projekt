@@ -43,6 +43,16 @@ public class Parser {
             return new ParserExpression.VariableExpression(token.getValue());
         }
 
+        if(token.getType() == TokenType.LEFT_PAREN) {
+            advance();
+
+            ParserExpression expression = parseExpression();
+
+            consume(TokenType.RIGHT_PAREN, "Förväntade ')'");
+
+            return expression;
+        }
+
         throw new ParserException(
             "Förväntqade ett heltal vid "
                 + token.getLine() + ":" + token.getColumn() + ", fick " + token.getType()
@@ -51,16 +61,42 @@ public class Parser {
     }
 
     public ParserExpression parseExpression() {
-        ParserExpression expression = parserPrimary();
+        ParserExpression expression = parseUnary();
 
         while(peek().getType() == TokenType.PLUS || peek().getType() == TokenType.MINUS) {
             Token operator = advance();
-            ParserExpression right = parserPrimary();
+            ParserExpression right = parseUnary();
 
             expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
         }
         
         return expression;
+    }
+
+    private Token consume(TokenType expected, String meddelande) {
+        Token token = peek();
+
+        if(token.getType() == expected) {
+            return advance();
+        }
+
+        throw new ParserException(
+            meddelande + "vid "
+                + token.getLine() + ":" + token.getColumn()
+                + ", fick " + token.getType()
+        );
+    }
+    
+    private ParserExpression parseUnary() {
+        if(peek().getType() == TokenType.MINUS) {
+            Token operator = advance();
+            ParserExpression operand = parseUnary();
+
+            return new ParserExpression.UnaryExpression(
+                operator.getType(), operand
+            );
+        }
+        return parserPrimary();
     }
         
 }

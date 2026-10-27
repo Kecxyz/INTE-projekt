@@ -146,4 +146,47 @@ class ParserTest {
         ParserExpression result = parser.parseExpression();
         assertEquals(new ParserExpression.VariableExpression("price"), result);
     }
+
+    @Test 
+    void respectsParentheses() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.INTEGER, "10", 1, 1),
+            new Token(TokenType.MINUS, "-", 1, 4),
+            new Token(TokenType.LEFT_PAREN, "(", 1, 6),
+            new Token(TokenType.INTEGER, "3", 1, 7),
+            new Token(TokenType.MINUS, "-", 1, 9),
+            new Token(TokenType.INTEGER, "2", 1, 11),
+            new Token(TokenType.RIGHT_PAREN, ")", 1, 12),
+            new Token(TokenType.EOF, "", 1, 13)
+        );
+
+        Parser parser = new Parser(tokens);
+        ParserExpression inner = new ParserExpression.BinaryExpression(
+            new ParserExpression.IntegerLiteral(3),
+            TokenType.MINUS,
+            new ParserExpression.IntegerLiteral(2)
+        );
+
+        ParserExpression expected = new ParserExpression.BinaryExpression(
+            new ParserExpression.IntegerLiteral(10),
+            TokenType.MINUS,
+            inner
+        );
+
+        assertEquals(expected, parser.parseExpression());
+    }
+
+    @Test
+    void parsesUnaryMinus() {
+        List<Token> tokens = List.of(
+            new Token(TokenType.MINUS, "-", 1, 1),
+            new Token(TokenType.INTEGER, "3", 1, 2),
+            new Token(TokenType.EOF, "", 1, 3)
+        );
+
+        Parser parser = new Parser(tokens);
+
+        ParserExpression expected = new ParserExpression.UnaryExpression(TokenType.MINUS, new ParserExpression.IntegerLiteral(3));
+        assertEquals(expected, parser.parseExpression());
+    }
 }
