@@ -25,5 +25,22 @@ public class Parser {
             "Förväntqade ett heltal vid "
                 + token.getLine() + ":" + token.getColumn() + ", fick " + token.getType()
         );
+
     }
+
+    public ParserExpression parseExpression() {
+        ParserExpression expression = parserPrimary();
+
+        while(tokens.get(current).getType() == TokenType.PLUS) {
+            Token operator = tokens.get(current);
+            current++;
+
+            ParserExpression right = parserPrimary();
+
+            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
+        }
+        
+        return expression;
+    }
+        
 }
