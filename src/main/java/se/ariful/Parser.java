@@ -64,6 +64,18 @@ public class Parser {
         return parseEquality();
     }
 
+
+    public ParserExpression parseCompleteExpression() {
+        ParserExpression expression = parseExpression();
+
+        consume(
+            TokenType.EOF,
+            "Förväntade slut på inmatningen"
+        );
+
+        return expression;
+    }
+
     private ParserExpression parseComparison() {
         ParserExpression expression = parseAddition();
 

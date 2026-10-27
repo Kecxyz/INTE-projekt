@@ -139,7 +139,7 @@ class ParserIntegrationTest {
     void rejectsMissingClosingParenthesis() {
         assertUnexpectedEnd("(3 + 2");
     }
-    
+
 
     @Test
     void rejectsEmptyExpression() {
@@ -156,5 +156,34 @@ class ParserIntegrationTest {
         );
 
         assertTrue(error.getMessage().contains("EOF"));
+    }
+
+    @Test
+    void rejectsExtraTokenAfterExpression() {
+        Lexer lexer = new Lexer("3 4");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseCompleteExpression()
+        );
+
+        assertTrue(error.getMessage().contains("INTEGER"));
+        assertTrue(error.getMessage().contains("1:3"));
+    }
+
+    @Test
+    void parsesCompleteExpression() {
+        Lexer lexer = new Lexer("3 + 2");
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserExpression expected =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.IntegerLiteral(3),
+                        TokenType.PLUS,
+                        new ParserExpression.IntegerLiteral(2)
+                );
+
+        assertEquals(expected, parser.parseCompleteExpression());
     }
 }
