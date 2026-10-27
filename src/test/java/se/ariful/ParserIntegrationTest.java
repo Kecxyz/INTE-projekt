@@ -3,6 +3,9 @@ package se.ariful;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class ParserIntegrationTest {
     @Test 
     void parsesSubtractionOfNegativeNumber() {
@@ -123,5 +126,35 @@ class ParserIntegrationTest {
                 );
 
         assertEquals(expected, parser.parseExpression());
+    }
+
+
+
+    @Test
+    void rejectsMissingEqualityOperand() {
+        assertUnexpectedEnd("3 ==");
+    }
+
+    @Test
+    void rejectsMissingClosingParenthesis() {
+        assertUnexpectedEnd("(3 + 2");
+    }
+    
+
+    @Test
+    void rejectsEmptyExpression() {
+        assertUnexpectedEnd("");
+    }
+
+    private void assertUnexpectedEnd(String source) {
+        Lexer lexer = new Lexer(source);
+        Parser parser = new Parser(lexer.tokenize());
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseExpression()
+        );
+
+        assertTrue(error.getMessage().contains("EOF"));
     }
 }
