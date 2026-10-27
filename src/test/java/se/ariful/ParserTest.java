@@ -189,4 +189,25 @@ class ParserTest {
         ParserExpression expected = new ParserExpression.UnaryExpression(TokenType.MINUS, new ParserExpression.IntegerLiteral(3));
         assertEquals(expected, parser.parseExpression());
     }
+
+    @Test 
+    void parsesGreaterEqualComparison() {
+        List<Token> tokens = List.of(
+                new Token(TokenType.IDENTIFIER, "price", 1, 1),
+                new Token(TokenType.GREATER_EQUAL, ">=", 1, 7),
+                new Token(TokenType.INTEGER, "100", 1, 10),
+                new Token(TokenType.EOF, "", 1, 13)
+        );
+
+        Parser parser = new Parser(tokens);
+
+        ParserExpression expected =
+                new ParserExpression.BinaryExpression(
+                        new ParserExpression.VariableExpression("price"),
+                        TokenType.GREATER_EQUAL,
+                        new ParserExpression.IntegerLiteral(100) 
+                );
+
+        assertEquals(expected, parser.parseExpression());
+    }
 }

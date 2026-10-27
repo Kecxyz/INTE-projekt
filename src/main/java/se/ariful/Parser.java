@@ -61,15 +61,46 @@ public class Parser {
     }
 
     public ParserExpression parseExpression() {
+        return parseComparison();
+    }
+
+    private ParserExpression parseComparison() {
+        ParserExpression expression = parseAddition();
+
+        while (peek().getType() == TokenType.LESS_THAN
+                || peek().getType() == TokenType.GREATER_THAN
+                || peek().getType() == TokenType.LESS_EQUAL
+                || peek().getType() == TokenType.GREATER_EQUAL) {
+
+            Token operator = advance();
+            ParserExpression right = parseAddition();
+
+            expression = new ParserExpression.BinaryExpression(
+                    expression,
+                    operator.getType(),
+                    right
+            );
+        }
+
+        return expression;
+    }
+
+    private ParserExpression parseAddition() {
         ParserExpression expression = parseUnary();
 
-        while(peek().getType() == TokenType.PLUS || peek().getType() == TokenType.MINUS) {
+        while (peek().getType() == TokenType.PLUS
+                || peek().getType() == TokenType.MINUS) {
+
             Token operator = advance();
             ParserExpression right = parseUnary();
 
-            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
+            expression = new ParserExpression.BinaryExpression(
+                    expression,
+                    operator.getType(),
+                    right
+            );
         }
-        
+
         return expression;
     }
 
