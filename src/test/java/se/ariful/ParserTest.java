@@ -85,9 +85,9 @@ class ParserTest {
             new Token(TokenType.INTEGER, "10", 1,1),
             new Token(TokenType.MINUS, "-", 1,4),
             new Token(TokenType.INTEGER, "3", 1,6),
-            new Token(TokenType.INTEGER, "-", 1,8),
+            new Token(TokenType.MINUS, "-", 1,8),
             new Token(TokenType.INTEGER, "2", 1,10),
-            new Token(TokenType.INTEGER, "", 1,11)
+            new Token(TokenType.EOF, "", 1,11)
         );
 
         Parser parser = new Parser(tokens);
