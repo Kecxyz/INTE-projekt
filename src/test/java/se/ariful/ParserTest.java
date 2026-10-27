@@ -210,4 +210,36 @@ class ParserTest {
 
         assertEquals(expected, parser.parseExpression());
     }
+
+    @Test
+    void parsesLargestIntegerLiteral() {
+        List<Token> tokens = List.of(
+                new Token(TokenType.INTEGER, "2147483647", 1, 1),
+                new Token(TokenType.EOF, "", 1, 11)
+        );
+
+        Parser parser = new Parser(tokens);
+
+        assertEquals(
+                new ParserExpression.IntegerLiteral(2147483647),
+                parser.parseCompleteExpression()
+        );
+    }
+
+    @Test
+    void rejectsIntegerAboveMaximum() {
+        List<Token> tokens = List.of(
+                new Token(TokenType.INTEGER, "2147483648", 1, 1),
+                new Token(TokenType.EOF, "", 1, 11)
+        );
+
+        Parser parser = new Parser(tokens);
+
+        ParserException error = assertThrows(
+                ParserException.class,
+                () -> parser.parseCompleteExpression()
+        );
+
+        assertTrue(error.getMessage().contains("1:1"));
+    }
 }
