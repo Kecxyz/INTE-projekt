@@ -11,12 +11,22 @@ public class Parser {
         this.tokens = List.copyOf(tokens);
     }
 
+    private Token peek() {
+        return tokens.get(current);
+    }
+
+    private Token advance() {
+        Token token = peek();
+        current++;
+        return token;
+    }
+
     private  ParserExpression parserPrimary() {
-        Token token = tokens.get(current);
+        Token token = peek();
 
         if(token.getType() == TokenType.INTEGER) {
             int value = Integer.parseInt(token.getValue());
-            current++;
+            advance();
 
             return new ParserExpression.IntegerLiteral(value);
         }
@@ -31,10 +41,8 @@ public class Parser {
     public ParserExpression parseExpression() {
         ParserExpression expression = parserPrimary();
 
-        while(tokens.get(current).getType() == TokenType.PLUS || tokens.get(current).getType() == TokenType.MINUS) {
-            Token operator = tokens.get(current);
-            current++;
-
+        while(peek().getType() == TokenType.PLUS || peek().getType() == TokenType.MINUS) {
+            Token operator = advance();
             ParserExpression right = parserPrimary();
 
             expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
