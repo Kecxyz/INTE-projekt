@@ -24,11 +24,18 @@ public class Parser {
     private  ParserExpression parserPrimary() {
         Token token = peek();
 
-        if(token.getType() == TokenType.INTEGER) {
-            int value = Integer.parseInt(token.getValue());
-            advance();
+        if (token.getType() == TokenType.INTEGER) {
+            try {
+                int value = Integer.parseInt(token.getValue());
+                advance();
 
-            return new ParserExpression.IntegerLiteral(value);
+                return new ParserExpression.IntegerLiteral(value);
+            } catch (NumberFormatException exception) {
+                throw new ParserException(
+                        "Ogiltigt heltal '" + token.getValue() + "' vid "
+                                + token.getLine() + ":" + token.getColumn()
+                );
+            }
         }
 
         if(token.getType() == TokenType.STRING) {
@@ -54,7 +61,7 @@ public class Parser {
         }
 
         throw new ParserException(
-            "Förväntqade ett heltal vid "
+            "Förväntqade ett uttryck vid "
                 + token.getLine() + ":" + token.getColumn() + ", fick " + token.getType()
         );
 
@@ -64,6 +71,10 @@ public class Parser {
         return parseEquality();
     }
 
+
+    public void parseStatement() {
+        throw new UnsupportedOperationException("Inte implementerat ännu");
+    }
 
     public ParserExpression parseCompleteExpression() {
         ParserExpression expression = parseExpression();
