@@ -73,8 +73,8 @@ public class Interpreter implements ASTVisitor<Object> {
             return switch (node.getComparisonOperator()) {
                 case "==" -> leftInt == rightInt;
                 case "!=" -> leftInt != rightInt;
-                case "<"  -> leftInt < rightInt;
-                case ">"  -> leftInt > rightInt;
+                case "<" -> leftInt < rightInt;
+                case ">" -> leftInt > rightInt;
                 case "<=" -> leftInt <= rightInt;
                 case ">=" -> leftInt >= rightInt;
                 default -> throw new RuntimeException("Okänd jämförelseoperator: " + node.getComparisonOperator());
@@ -86,8 +86,8 @@ public class Interpreter implements ASTVisitor<Object> {
             return switch (node.getComparisonOperator()) {
                 case "==" -> comparisonResult == 0;
                 case "!=" -> comparisonResult != 0;
-                case "<"  -> comparisonResult < 0;
-                case ">"  -> comparisonResult > 0;
+                case "<" -> comparisonResult < 0;
+                case ">" -> comparisonResult > 0;
                 default -> throw new RuntimeException("Ogiltig strängjämförelse");
             };
         }

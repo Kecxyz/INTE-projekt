@@ -19,7 +19,7 @@ public class Main {
         if (args.length == 1) {
             sourceCode = Files.readString(Path.of(args[0]));
         } else {
-        
+
             sourceCode = """
                     function sumTo(limit) {
                         let total = 0;
@@ -29,7 +29,7 @@ public class Main {
                         }
                         return total;
                     }
-
+                    
                     let result = sumTo(100);
                     if (result == 5050) {
                         print(result);

@@ -10,8 +10,13 @@ public class LetNode implements ASTNode {
         this.expressionNode = expressionNode;
     }
 
-    public String getVariableName() { return variableName; }
-    public ASTNode getExpressionNode() { return expressionNode; }
+    public String getVariableName() {
+        return variableName;
+    }
+
+    public ASTNode getExpressionNode() {
+        return expressionNode;
+    }
 
     public <T> T accept(ASTVisitor<T> visitor) {
         return visitor.visit(this);

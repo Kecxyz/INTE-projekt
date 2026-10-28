@@ -12,9 +12,17 @@ public class BinaryOpNode implements ASTNode {
         this.rightOperand = rightOperand;
     }
 
-    public ASTNode getLeftOperand() { return leftOperand; }
-    public ASTNode getRightOperand() { return rightOperand; }
-    public char getOperatorSymbol() { return operatorSymbol; }
+    public ASTNode getLeftOperand() {
+        return leftOperand;
+    }
+
+    public ASTNode getRightOperand() {
+        return rightOperand;
+    }
+
+    public char getOperatorSymbol() {
+        return operatorSymbol;
+    }
 
     public <T> T accept(ASTVisitor<T> visitor) {
         return visitor.visit(this);

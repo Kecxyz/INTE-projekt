@@ -10,8 +10,13 @@ public class WhileNode implements ASTNode {
         this.loopBody = loopBody;
     }
 
-    public ASTNode getConditionNode() { return conditionNode; }
-    public ASTNode getLoopBody() { return loopBody; }
+    public ASTNode getConditionNode() {
+        return conditionNode;
+    }
+
+    public ASTNode getLoopBody() {
+        return loopBody;
+    }
 
     public <T> T accept(ASTVisitor<T> visitor) {
         return visitor.visit(this);

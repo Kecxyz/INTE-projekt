@@ -12,9 +12,17 @@ public class IfNode implements ASTNode {
         this.elseBranch = elseBranch;
     }
 
-    public ASTNode getConditionNode() { return conditionNode; }
-    public ASTNode getThenBranch() { return thenBranch; }
-    public ASTNode getElseBranch() { return elseBranch; }
+    public ASTNode getConditionNode() {
+        return conditionNode;
+    }
+
+    public ASTNode getThenBranch() {
+        return thenBranch;
+    }
+
+    public ASTNode getElseBranch() {
+        return elseBranch;
+    }
 
     public <T> T accept(ASTVisitor<T> visitor) {
         return visitor.visit(this);

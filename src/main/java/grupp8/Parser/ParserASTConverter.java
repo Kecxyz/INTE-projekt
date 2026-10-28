@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ParserASTConverter {
-    private ParserASTConverter() {}
+    private ParserASTConverter() {
+    }
 
     public static ASTNode toAST(ParserExpression expression) {
-        if(expression instanceof  ParserExpression.IntegerLiteral literal) {
+        if (expression instanceof ParserExpression.IntegerLiteral literal) {
             return new IntegerLiteralNode(literal.value());
         }
 
-        if(expression instanceof  ParserExpression.StringLiteral literal) {
+        if (expression instanceof ParserExpression.StringLiteral literal) {
             return new StringLiteralNode(literal.value());
         }
 
-        if(expression instanceof  ParserExpression.VariableExpression variable) {
+        if (expression instanceof ParserExpression.VariableExpression variable) {
             return new VarNode(variable.name());
         }
 

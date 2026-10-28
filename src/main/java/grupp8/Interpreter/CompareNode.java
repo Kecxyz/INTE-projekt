@@ -12,9 +12,17 @@ public class CompareNode implements ASTNode {
         this.rightOperand = rightOperand;
     }
 
-    public ASTNode getLeftOperand() { return leftOperand; }
-    public ASTNode getRightOperand() { return rightOperand; }
-    public String getComparisonOperator() { return comparisonOperator; }
+    public ASTNode getLeftOperand() {
+        return leftOperand;
+    }
+
+    public ASTNode getRightOperand() {
+        return rightOperand;
+    }
+
+    public String getComparisonOperator() {
+        return comparisonOperator;
+    }
 
     public <T> T accept(ASTVisitor<T> visitor) {
         return visitor.visit(this);

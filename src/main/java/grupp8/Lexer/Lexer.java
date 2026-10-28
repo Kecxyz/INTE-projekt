@@ -89,7 +89,7 @@ public class Lexer {
         int startLine = line;
         int startColumn = column;
 
-        while ( peek() != '"') {
+        while (peek() != '"') {
             advance();
         }
 
