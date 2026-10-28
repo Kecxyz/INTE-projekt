@@ -1,17 +1,30 @@
 package grupp8.Parser;
 
+import grupp8.Interpreter.ASTNode;
+import grupp8.Interpreter.AssignNode;
+import grupp8.Interpreter.BlockNode;
+import grupp8.Interpreter.FunctionNode;
+import grupp8.Interpreter.IfNode;
+import grupp8.Interpreter.LetNode;
+import grupp8.Interpreter.PrintNode;
+import grupp8.Interpreter.ReturnNode;
+import grupp8.Interpreter.WhileNode;
 import grupp8.Lexer.Token;
 import grupp8.Lexer.TokenType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
-
     private final List<Token> tokens;
     private int current = 0;
+    private boolean insideFunction = false;
 
     public Parser(List<Token> tokens) {
         this.tokens = List.copyOf(tokens);
+        if (this.tokens.isEmpty() || this.tokens.get(this.tokens.size() - 1).getType() != TokenType.EOF) {
+            throw new ParserException("Tokenlistan måste avslutas med en markör för slut på inmatningen");
+        }
     }
 
     private Token peek() {
@@ -20,308 +33,260 @@ public class Parser {
 
     private Token advance() {
         Token token = peek();
-        current++;
+        if (token.getType() != TokenType.EOF) {
+            current++;
+        }
         return token;
     }
 
-    private  ParserExpression parserPrimary() {
-        Token token = peek();
+    private boolean match(TokenType type) {
+        if (peek().getType() != type) {
+            return false;
+        }
+        advance();
+        return true;
+    }
 
-        if (token.getType() == TokenType.INTEGER) {
-            try {
-                int value = Integer.parseInt(token.getValue());
-                advance();
+    private Token consume(TokenType expected, String message) {
+        if (peek().getType() == expected) {
+            return advance();
+        }
+        throw error(peek(), message);
+    }
 
-                return new ParserExpression.IntegerLiteral(value);
-            } catch (NumberFormatException exception) {
-                throw new ParserException(
-                        "Ogiltigt heltal '" + token.getValue() + "' vid "
-                                + token.getLine() + ":" + token.getColumn()
-                );
+    private ParserException error(Token token, String message) {
+        return new ParserException(
+                message + " vid " + token.getLine() + ":" + token.getColumn()
+                        + ", fick " + token.getType().getDescription()
+        );
+    }
+
+    public BlockNode parseProgram() {
+        List<ASTNode> statements = new ArrayList<>();
+        while (peek().getType() != TokenType.EOF) {
+            if (peek().getType() == TokenType.FUNCTION) {
+                statements.add(parseFunctionStatement());
+            } else {
+                statements.add(parseStatement());
             }
         }
+        consume(TokenType.EOF, "Förväntade slut på programmet");
+        return new BlockNode(statements);
+    }
 
-        if(token.getType() == TokenType.STRING) {
-            advance();
+    public ASTNode parseStatement() {
+        return switch (peek().getType()) {
+            case LET -> parseLetStatement();
+            case IDENTIFIER -> parseIdentifierStatement();
+            case PRINT -> parsePrintStatement();
+            case LEFT_BRACE -> parseBlock();
+            case IF -> parseIfStatement();
+            case WHILE -> parseWhileStatement();
+            case RETURN -> parseReturnStatement();
+            case FUNCTION -> throw error(peek(), "Funktioner måste deklareras på programmets översta nivå");
+            default -> throw error(peek(), "Förväntade en instruktion");
+        };
+    }
 
-            return new ParserExpression.StringLiteral(token.getValue());
+    private LetNode parseLetStatement() {
+        consume(TokenType.LET, "Förväntade 'let'");
+        Token name = consume(TokenType.IDENTIFIER, "Förväntade ett variabelnamn efter 'let'");
+        consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
+        ASTNode expression = ParserASTConverter.toAST(parseExpression());
+        consume(TokenType.SEMICOLON, "Förväntade ';' efter deklarationen");
+        return new LetNode(name.getValue(), expression);
+    }
+
+    private ASTNode parseIdentifierStatement() {
+        Token name = consume(TokenType.IDENTIFIER, "Förväntade ett variabelnamn");
+        if (peek().getType() == TokenType.LEFT_PAREN) {
+            ParserExpression.CallExpression call = parseCall(name.getValue());
+            consume(TokenType.SEMICOLON, "Förväntade ';' efter funktionsanropet");
+            return ParserASTConverter.toAST(call);
         }
 
-        if(token.getType() == TokenType.IDENTIFIER) {
-            advance();
+        consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
+        ASTNode expression = ParserASTConverter.toAST(parseExpression());
+        consume(TokenType.SEMICOLON, "Förväntade ';' efter tilldelningen");
+        return new AssignNode(name.getValue(), expression);
+    }
 
-            return new ParserExpression.VariableExpression(token.getValue());
+    private PrintNode parsePrintStatement() {
+        consume(TokenType.PRINT, "Förväntade 'print'");
+        consume(TokenType.LEFT_PAREN, "Förväntade '(' efter 'print'");
+        ASTNode expression = ParserASTConverter.toAST(parseExpression());
+        consume(TokenType.RIGHT_PAREN, "Förväntade ')' efter utskriftsuttrycket");
+        consume(TokenType.SEMICOLON, "Förväntade ';' efter utskriften");
+        return new PrintNode(expression);
+    }
+
+    private IfNode parseIfStatement() {
+        consume(TokenType.IF, "Förväntade 'if'");
+        consume(TokenType.LEFT_PAREN, "Förväntade '(' efter 'if'");
+        ASTNode condition = ParserASTConverter.toAST(parseExpression());
+        consume(TokenType.RIGHT_PAREN, "Förväntade ')' efter villkoret");
+        BlockNode thenBranch = parseBlock();
+
+        ASTNode elseBranch = null;
+        if (match(TokenType.ELSE)) {
+            if (peek().getType() == TokenType.IF) {
+                elseBranch = parseIfStatement();
+            } else {
+                elseBranch = parseBlock();
+            }
         }
+        return new IfNode(condition, thenBranch, elseBranch);
+    }
 
-        if(token.getType() == TokenType.LEFT_PAREN) {
-            advance();
+    private WhileNode parseWhileStatement() {
+        consume(TokenType.WHILE, "Förväntade 'while'");
+        consume(TokenType.LEFT_PAREN, "Förväntade '(' efter 'while'");
+        ASTNode condition = ParserASTConverter.toAST(parseExpression());
+        consume(TokenType.RIGHT_PAREN, "Förväntade ')' efter villkoret");
+        BlockNode body = parseBlock();
+        return new WhileNode(condition, body);
+    }
 
-            ParserExpression expression = parseExpression();
-
-            consume(TokenType.RIGHT_PAREN, "Förväntade ')'");
-
-            return expression;
+    private BlockNode parseBlock() {
+        consume(TokenType.LEFT_BRACE, "Förväntade '{'");
+        List<ASTNode> statements = new ArrayList<>();
+        while (peek().getType() != TokenType.RIGHT_BRACE && peek().getType() != TokenType.EOF) {
+            statements.add(parseStatement());
         }
+        consume(TokenType.RIGHT_BRACE, "Förväntade '}' efter kodblocket");
+        return new BlockNode(statements);
+    }
 
-        throw new ParserException(
-            "Förväntqade ett uttryck vid "
-                + token.getLine() + ":" + token.getColumn() + ", fick " + token.getType()
-        );
+    private FunctionNode parseFunctionStatement() {
+        consume(TokenType.FUNCTION, "Förväntade 'function'");
+        Token name = consume(TokenType.IDENTIFIER, "Förväntade ett funktionsnamn");
+        consume(TokenType.LEFT_PAREN, "Förväntade '(' efter funktionsnamnet");
 
+        List<String> parameters = new ArrayList<>();
+        if (peek().getType() != TokenType.RIGHT_PAREN) {
+            do {
+                Token parameter = consume(TokenType.IDENTIFIER, "Förväntade ett parameternamn");
+                if (parameters.contains(parameter.getValue())) {
+                    throw error(parameter, "Parametern '" + parameter.getValue() + "' har redan angetts");
+                }
+                parameters.add(parameter.getValue());
+            } while (match(TokenType.COMMA));
+        }
+        consume(TokenType.RIGHT_PAREN, "Förväntade ')' efter parametrarna");
+
+        insideFunction = true;
+        BlockNode body;
+        try {
+            body = parseBlock();
+        } finally {
+            insideFunction = false;
+        }
+        return new FunctionNode(name.getValue(), parameters, body);
+    }
+
+    private ReturnNode parseReturnStatement() {
+        if (!insideFunction) {
+            throw error(peek(), "Nyckelordet 'return' får bara användas inuti en funktion");
+        }
+        consume(TokenType.RETURN, "Förväntade 'return'");
+        ASTNode expression = null;
+        if (peek().getType() != TokenType.SEMICOLON) {
+            expression = ParserASTConverter.toAST(parseExpression());
+        }
+        consume(TokenType.SEMICOLON, "Förväntade ';' efter returvärdet");
+        return new ReturnNode(expression);
     }
 
     public ParserExpression parseExpression() {
         return parseEquality();
     }
 
-
-    public void parseProgram() {
-        while (peek().getType() != TokenType.EOF) {
-            parseStatement();
-        }
-
-        consume(
-                TokenType.EOF,
-                "Förväntade slut på programmet"
-        );
-    }
-
-    public void parseStatement() {
-        if (peek().getType() == TokenType.LET) {
-            parseLetStatement();
-            return;
-        }
-
-        if (peek().getType() == TokenType.IDENTIFIER) {
-            parseAssignmentStatement();
-            return;
-        }
-
-        if (peek().getType() == TokenType.PRINT) {
-            parsePrintStatement();
-            return;
-        }
-
-        if (peek().getType() == TokenType.LEFT_BRACE) {
-            parseBlock();
-            return;
-        }
-
-        if (peek().getType() == TokenType.IF) {
-            parseIfStatement();
-            return;
-        }
-
-        if (peek().getType() == TokenType.WHILE) {
-            parseWhileStatement();
-            return;
-        }
-
-        Token token = peek();
-
-        throw new ParserException(
-                "Förväntade en instruktion vid "
-                        + token.getLine() + ":" + token.getColumn()
-                        + ", fick " + token.getType()
-        );
-    }
-
-    private void parseLetStatement() {
-        consume(TokenType.LET, "Förväntade 'let'");
-
-        consume(
-                TokenType.IDENTIFIER,
-                "Förväntade ett variabelnamn efter 'let'"
-        );
-
-        consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
-
-        parseExpression();
-
-        consume(TokenType.SEMICOLON, "Förväntade ';' efter deklarationen");
-    }
-
-    private void parseAssignmentStatement() {
-        consume(TokenType.IDENTIFIER, "Förväntade ett variabelnamn");
-
-        consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
-
-        parseExpression();
-
-        consume(TokenType.SEMICOLON, "Förväntade ';' efter tilldelningen");
-    }
-
-    private void parseIfStatement() {
-        consume(TokenType.IF, "Förväntade 'if'");
-
-        consume(
-                TokenType.LEFT_PAREN,
-                "Förväntade '(' efter 'if'"
-        );
-
-        parseExpression();
-
-        consume(
-                TokenType.RIGHT_PAREN,
-                "Förväntade ')' efter villkoret"
-        );
-
-        parseBlock();
-
-        if (peek().getType() == TokenType.ELSE) {
-            advance();
-            parseBlock();
-        }
-    }
-
-    private void parseWhileStatement() {
-        consume(TokenType.WHILE, "Förväntade 'while'");
-
-        consume(
-                TokenType.LEFT_PAREN,
-                "Förväntade '(' efter 'while'"
-        );
-
-        parseExpression();
-
-        consume(
-                TokenType.RIGHT_PAREN,
-                "Förväntade ')' efter villkoret"
-        );
-
-        parseBlock();
-    }
-
-    private void parsePrintStatement() {
-        consume(TokenType.PRINT, "Förväntade 'print'");
-
-        consume(
-                TokenType.LEFT_PAREN,
-                "Förväntade '(' efter 'print'"
-        );
-
-        parseExpression();
-
-        consume(
-                TokenType.RIGHT_PAREN,
-                "Förväntade ')' efter utskriftsuttrycket"
-        );
-
-        consume(
-                TokenType.SEMICOLON,
-                "Förväntade ';' efter utskriften"
-        );
-    }
-
-    private void parseBlock() {
-        consume(TokenType.LEFT_BRACE, "Förväntade '{'");
-
-        while (peek().getType() != TokenType.RIGHT_BRACE
-                && peek().getType() != TokenType.EOF) {
-
-            parseStatement();
-        }
-
-        consume(
-                TokenType.RIGHT_BRACE,
-                "Förväntade '}' efter kodblocket"
-        );
-    }
-
     public ParserExpression parseCompleteExpression() {
         ParserExpression expression = parseExpression();
+        consume(TokenType.EOF, "Förväntade slut på inmatningen");
+        return expression;
+    }
 
-        consume(
-            TokenType.EOF,
-            "Förväntade slut på inmatningen"
-        );
-
+    private ParserExpression parseEquality() {
+        ParserExpression expression = parseComparison();
+        while (peek().getType() == TokenType.EQUAL_EQUAL || peek().getType() == TokenType.NOT_EQUAL) {
+            Token operator = advance();
+            ParserExpression right = parseComparison();
+            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
+        }
         return expression;
     }
 
     private ParserExpression parseComparison() {
         ParserExpression expression = parseAddition();
-
         while (peek().getType() == TokenType.LESS_THAN
                 || peek().getType() == TokenType.GREATER_THAN
                 || peek().getType() == TokenType.LESS_EQUAL
                 || peek().getType() == TokenType.GREATER_EQUAL) {
-
             Token operator = advance();
             ParserExpression right = parseAddition();
-
-            expression = new ParserExpression.BinaryExpression(
-                    expression,
-                    operator.getType(),
-                    right
-            );
+            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
         }
-
-        return expression;
-    }
-
-    private ParserExpression parseEquality() {
-    ParserExpression expression = parseComparison();
-
-        while (peek().getType() == TokenType.EQUAL_EQUAL
-                || peek().getType() == TokenType.NOT_EQUAL) {
-
-            Token operator = advance();
-            ParserExpression right = parseComparison();
-
-            expression = new ParserExpression.BinaryExpression(
-                    expression,
-                    operator.getType(),
-                    right
-            );
-        }
-
         return expression;
     }
 
     private ParserExpression parseAddition() {
         ParserExpression expression = parseUnary();
-
-        while (peek().getType() == TokenType.PLUS
-                || peek().getType() == TokenType.MINUS) {
-
+        while (peek().getType() == TokenType.PLUS || peek().getType() == TokenType.MINUS) {
             Token operator = advance();
             ParserExpression right = parseUnary();
-
-            expression = new ParserExpression.BinaryExpression(
-                    expression,
-                    operator.getType(),
-                    right
-            );
+            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
         }
-
         return expression;
     }
 
-    private Token consume(TokenType expected, String meddelande) {
-        Token token = peek();
-
-        if(token.getType() == expected) {
-            return advance();
-        }
-
-        throw new ParserException(
-            meddelande + "vid "
-                + token.getLine() + ":" + token.getColumn()
-                + ", fick " + token.getType()
-        );
-    }
-    
     private ParserExpression parseUnary() {
-        if(peek().getType() == TokenType.MINUS) {
-            Token operator = advance();
-            ParserExpression operand = parseUnary();
-
-            return new ParserExpression.UnaryExpression(
-                operator.getType(), operand
-            );
+        if (match(TokenType.MINUS)) {
+            return new ParserExpression.UnaryExpression(TokenType.MINUS, parseUnary());
         }
-        return parserPrimary();
+        return parsePrimary();
     }
-        
+
+    private ParserExpression parsePrimary() {
+        Token token = peek();
+        if (token.getType() == TokenType.INTEGER) {
+            try {
+                int value = Integer.parseInt(token.getValue());
+                advance();
+                return new ParserExpression.IntegerLiteral(value);
+            } catch (NumberFormatException exception) {
+                throw error(token, "Ogiltigt heltal '" + token.getValue() + "'");
+            }
+        }
+
+        if (match(TokenType.STRING)) {
+            return new ParserExpression.StringLiteral(token.getValue());
+        }
+
+        if (match(TokenType.IDENTIFIER)) {
+            if (peek().getType() == TokenType.LEFT_PAREN) {
+                return parseCall(token.getValue());
+            }
+            return new ParserExpression.VariableExpression(token.getValue());
+        }
+
+        if (match(TokenType.LEFT_PAREN)) {
+            ParserExpression expression = parseExpression();
+            consume(TokenType.RIGHT_PAREN, "Förväntade ')'");
+            return expression;
+        }
+        throw error(token, "Förväntade ett uttryck");
+    }
+
+    private ParserExpression.CallExpression parseCall(String name) {
+        consume(TokenType.LEFT_PAREN, "Förväntade '(' efter funktionsnamnet");
+        List<ParserExpression> arguments = new ArrayList<>();
+        if (peek().getType() != TokenType.RIGHT_PAREN) {
+            do {
+                arguments.add(parseExpression());
+            } while (match(TokenType.COMMA));
+        }
+        consume(TokenType.RIGHT_PAREN, "Förväntade ')' efter argumenten");
+        return new ParserExpression.CallExpression(name, arguments);
+    }
 }

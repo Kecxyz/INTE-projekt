@@ -12,6 +12,16 @@ import java.util.List;
 
 class LexerTest {
     @Test
+    void shouldRecognizeFunctionKeywordsAndComma() {
+        List<Token> tokens = new Lexer("function return ,").tokenize();
+
+        assertEquals(TokenType.FUNCTION, tokens.get(0).getType());
+        assertEquals(TokenType.RETURN, tokens.get(1).getType());
+        assertEquals(TokenType.COMMA, tokens.get(2).getType());
+        assertEquals(TokenType.EOF, tokens.get(3).getType());
+    }
+
+    @Test
     void shouldTokenizeInteger() {
         Lexer lexer = new Lexer("123");
         List<Token> tokens = lexer.tokenize();

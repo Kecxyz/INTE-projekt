@@ -1,32 +1,44 @@
 package grupp8.Lexer;
 
 public enum TokenType {
+    LET("'let'"),
+    IF("'if'"),
+    ELSE("'else'"),
+    WHILE("'while'"),
+    PRINT("'print'"),
+    FUNCTION("'function'"),
+    RETURN("'return'"),
 
-    LET,
-    IF,
-    ELSE,
-    WHILE,
-    PRINT,
+    IDENTIFIER("ett variabel- eller funktionsnamn"),
+    INTEGER("ett heltal"),
+    STRING("en sträng"),
 
-    IDENTIFIER,
-    INTEGER,
-    STRING,
+    ASSIGN("'='"),
+    PLUS("'+'"),
+    MINUS("'-'"),
+    EQUAL_EQUAL("'=='"),
+    LESS_EQUAL("'<='"),
+    GREATER_EQUAL("'>='"),
+    LESS_THAN("'<'"),
+    GREATER_THAN("'>'"),
+    NOT_EQUAL("'!='"),
 
-    ASSIGN,
-    PLUS,
-    MINUS,
-    EQUAL_EQUAL,
-    LESS_EQUAL,
-    GREATER_EQUAL,
-    LESS_THAN,
-    GREATER_THAN,
-    NOT_EQUAL,
+    LEFT_PAREN("'('"),
+    RIGHT_PAREN("')'"),
+    LEFT_BRACE("'{'"),
+    RIGHT_BRACE("'}'"),
+    SEMICOLON("';'"),
+    COMMA("','"),
 
-    LEFT_PAREN,
-    RIGHT_PAREN,
-    LEFT_BRACE,
-    RIGHT_BRACE,
-    SEMICOLON,
+    EOF("slut på inmatningen");
 
-    EOF
+    private final String description;
+
+    TokenType(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

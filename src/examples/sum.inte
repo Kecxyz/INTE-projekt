@@ -1,0 +1,15 @@
+function sumTo(limit) {
+    let total = 0;
+    while (limit > 0) {
+        total = total + limit;
+        limit = limit - 1;
+    }
+    return total;
+}
+
+let result = sumTo(100);
+if (result == 5050) {
+    print("Summan är " + result);
+} else {
+    print("Oväntat resultat");
+}

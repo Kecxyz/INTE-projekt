@@ -71,6 +71,8 @@ public class Lexer {
             case "else" -> TokenType.ELSE;
             case "while" -> TokenType.WHILE;
             case "print" -> TokenType.PRINT;
+            case "function" -> TokenType.FUNCTION;
+            case "return" -> TokenType.RETURN;
             default -> TokenType.IDENTIFIER;
         };
 
@@ -88,7 +90,7 @@ public class Lexer {
         }
 
         if (isAtEnd()) {
-            throw new LexerException("Unterminated string at" + startLine + ":" + startColumn);
+            throw new LexerException("Strängen är inte avslutad vid " + startLine + ":" + startColumn);
         }
         String value = source.substring(start, position);
 
@@ -143,6 +145,10 @@ public class Lexer {
                     advance();
                     tokens.add(new Token(TokenType.SEMICOLON, ";", tokenLine, tokenColumn));
                 }
+                case ',' -> {
+                    advance();
+                    tokens.add(new Token(TokenType.COMMA, ",", tokenLine, tokenColumn));
+                }
                 case '(' -> {
                     advance();
                     tokens.add(new Token(TokenType.LEFT_PAREN, "(", tokenLine, tokenColumn));
@@ -184,14 +190,14 @@ public class Lexer {
                         tokens.add(new Token(TokenType.NOT_EQUAL, "!=", tokenLine, tokenColumn));
                     } else {
                         throw new LexerException(
-                                "Unexpected character '!' at " + tokenLine + ":" + tokenColumn
+                                "Oväntat tecken '!' vid " + tokenLine + ":" + tokenColumn
                         );
                     }
                 }
                 case '"' -> tokens.add(readString());
 
                 default -> throw new LexerException(
-                        "Unexpected character '" + current + "' at "
+                        "Oväntat tecken '" + current + "' vid "
                                 + tokenLine + ":" + tokenColumn
                 );
             }

@@ -3,6 +3,9 @@ package grupp8.Parser;
 import grupp8.Interpreter.*;
 import grupp8.Lexer.TokenType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class ParserASTConverter {
     private ParserASTConverter() {}
 
@@ -19,6 +22,14 @@ public final class ParserASTConverter {
             return new VarNode(variable.name());
         }
 
+        if (expression instanceof ParserExpression.CallExpression call) {
+            List<ASTNode> arguments = new ArrayList<>();
+            for (ParserExpression argument : call.arguments()) {
+                arguments.add(toAST(argument));
+            }
+            return new CallNode(call.name(), arguments);
+        }
+
         if (expression instanceof ParserExpression.UnaryExpression unary) {
             if (unary.operator() == TokenType.MINUS) {
                 // -x representeras som 0 - x.
@@ -30,7 +41,7 @@ public final class ParserASTConverter {
             }
 
             throw new IllegalArgumentException(
-                    "Operatorn stöds inte: " + unary.operator()
+                    "Operatorn stöds inte: " + unary.operator().getDescription()
             );
         }
 
@@ -49,7 +60,7 @@ public final class ParserASTConverter {
                 case GREATER_EQUAL -> new CompareNode(left, ">=", right);
 
                 default -> throw new IllegalArgumentException(
-                        "Operatorn stöds inte: " + binary.operator()
+                        "Operatorn stöds inte: " + binary.operator().getDescription()
                 );
             };
         }

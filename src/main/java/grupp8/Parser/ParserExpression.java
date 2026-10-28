@@ -2,7 +2,11 @@ package grupp8.Parser;
 
 import grupp8.Lexer.TokenType;
 
+import java.util.List;
+
 public interface ParserExpression {
+    record CallExpression(String name, List<ParserExpression> arguments) implements ParserExpression {
+    }
     
     record IntegerLiteral(int value) implements ParserExpression {
         
