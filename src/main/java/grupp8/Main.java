@@ -20,7 +20,7 @@ public class Main {
         if (args.length == 1) {
             sourceCode = Files.readString(Path.of(args[0]));
         } else {
-            // Sample source code matching your parser capabilities
+        
             sourceCode = """
                     function sumTo(limit) {
                         let total = 0;

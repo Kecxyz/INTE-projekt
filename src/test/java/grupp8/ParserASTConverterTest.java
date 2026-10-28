@@ -1,5 +1,15 @@
 package grupp8;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+
 import grupp8.Interpreter.BinaryOpNode;
 import grupp8.Interpreter.CallNode;
 import grupp8.Interpreter.CompareNode;
@@ -9,16 +19,6 @@ import grupp8.Interpreter.VarNode;
 import grupp8.Lexer.TokenType;
 import grupp8.Parser.ParserASTConverter;
 import grupp8.Parser.ParserExpression;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ParserASTConverterTest {
 
