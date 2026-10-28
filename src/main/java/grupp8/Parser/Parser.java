@@ -22,7 +22,7 @@ public class Parser {
 
     public Parser(List<Token> tokens) {
         this.tokens = List.copyOf(tokens);
-        if (this.tokens.isEmpty() || this.tokens.get(this.tokens.size() - 1).type() != TokenType.EOF) {
+        if (this.tokens.isEmpty() || this.tokens.getLast().type() != TokenType.EOF) {
             throw new ParserException("Tokenlistan måste avslutas med en markör för slut på inmatningen");
         }
     }
