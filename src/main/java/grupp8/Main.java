@@ -9,7 +9,6 @@ import grupp8.Interpreter.Interpreter;
 import grupp8.Lexer.Lexer;
 import grupp8.Parser.Parser;
 
-// Runs the full pipeline: Lexer -> Parser -> Interpreter
 public class Main {
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
