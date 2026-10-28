@@ -26,9 +26,9 @@ class LexerTest {
         Lexer lexer = new Lexer("123");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.INTEGER, tokens.get(0).getType());
-        assertEquals("123", tokens.get(0).getValue());
-        assertEquals(TokenType.EOF, tokens.get(1).getType());
+        assertEquals(TokenType.INTEGER, tokens.get(0).type());
+        assertEquals("123", tokens.get(0).value());
+        assertEquals(TokenType.EOF, tokens.get(1).type());
     }
 
     @Test
@@ -36,13 +36,13 @@ class LexerTest {
         Lexer lexer = new Lexer("12 + 34");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.INTEGER, tokens.get(0).getType());
-        assertEquals("12", tokens.get(0).getValue());
+        assertEquals(TokenType.INTEGER, tokens.get(0).type());
+        assertEquals("12", tokens.get(0).value());
 
-        assertEquals(TokenType.PLUS, tokens.get(1).getType());
+        assertEquals(TokenType.PLUS, tokens.get(1).type());
 
-        assertEquals(TokenType.INTEGER, tokens.get(2).getType());
-        assertEquals("34", tokens.get(2).getValue());
+        assertEquals(TokenType.INTEGER, tokens.get(2).type());
+        assertEquals("34", tokens.get(2).value());
     }
 
     @Test
@@ -50,9 +50,9 @@ class LexerTest {
         Lexer lexer = new Lexer("10 - 3");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.INTEGER, tokens.get(0).getType());
-        assertEquals(TokenType.MINUS, tokens.get(1).getType());
-        assertEquals(TokenType.INTEGER, tokens.get(2).getType());
+        assertEquals(TokenType.INTEGER, tokens.get(0).type());
+        assertEquals(TokenType.MINUS, tokens.get(1).type());
+        assertEquals(TokenType.INTEGER, tokens.get(2).type());
     }
 
     @Test
@@ -60,10 +60,10 @@ class LexerTest {
         Lexer lexer = new Lexer("   123   +   4   ");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.INTEGER, tokens.get(0).getType());
-        assertEquals(TokenType.PLUS, tokens.get(1).getType());
-        assertEquals(TokenType.INTEGER, tokens.get(2).getType());
-        assertEquals(TokenType.EOF, tokens.get(3).getType());
+        assertEquals(TokenType.INTEGER, tokens.get(0).type());
+        assertEquals(TokenType.PLUS, tokens.get(1).type());
+        assertEquals(TokenType.INTEGER, tokens.get(2).type());
+        assertEquals(TokenType.EOF, tokens.get(3).type());
     }
 
 
@@ -72,11 +72,11 @@ class LexerTest {
         Lexer lexer = new Lexer("let if else while print");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.LET, tokens.get(0).getType());
-        assertEquals(TokenType.IF, tokens.get(1).getType());
-        assertEquals(TokenType.ELSE, tokens.get(2).getType());
-        assertEquals(TokenType.WHILE, tokens.get(3).getType());
-        assertEquals(TokenType.PRINT, tokens.get(4).getType());
+        assertEquals(TokenType.LET, tokens.get(0).type());
+        assertEquals(TokenType.IF, tokens.get(1).type());
+        assertEquals(TokenType.ELSE, tokens.get(2).type());
+        assertEquals(TokenType.WHILE, tokens.get(3).type());
+        assertEquals(TokenType.PRINT, tokens.get(4).type());
     }
 
     @Test
@@ -84,8 +84,8 @@ class LexerTest {
         Lexer lexer = new Lexer("myVariable");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.IDENTIFIER, tokens.get(0).getType());
-        assertEquals("myVariable", tokens.get(0).getValue());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(0).type());
+        assertEquals("myVariable", tokens.get(0).value());
     }
 
     @Test
@@ -93,8 +93,8 @@ class LexerTest {
         Lexer lexer = new Lexer("letter");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.IDENTIFIER, tokens.get(0).getType());
-        assertEquals("letter", tokens.get(0).getValue());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(0).type());
+        assertEquals("letter", tokens.get(0).value());
     }
 
 
@@ -103,8 +103,8 @@ class LexerTest {
         Lexer lexer = new Lexer("\"Hello world\"");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.STRING, tokens.get(0).getType());
-        assertEquals("Hello world", tokens.get(0).getValue());
+        assertEquals(TokenType.STRING, tokens.get(0).type());
+        assertEquals("Hello world", tokens.get(0).value());
     }
 
     @Test
@@ -112,11 +112,11 @@ class LexerTest {
         Lexer lexer = new Lexer("let x = 5;");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.LET, tokens.get(0).getType());
-        assertEquals(TokenType.IDENTIFIER, tokens.get(1).getType());
-        assertEquals(TokenType.ASSIGN, tokens.get(2).getType());
-        assertEquals(TokenType.INTEGER, tokens.get(3).getType());
-        assertEquals(TokenType.SEMICOLON, tokens.get(4).getType());
+        assertEquals(TokenType.LET, tokens.get(0).type());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(1).type());
+        assertEquals(TokenType.ASSIGN, tokens.get(2).type());
+        assertEquals(TokenType.INTEGER, tokens.get(3).type());
+        assertEquals(TokenType.SEMICOLON, tokens.get(4).type());
     }
 
 
@@ -125,12 +125,12 @@ class LexerTest {
         Lexer lexer = new Lexer("== != < > <= >=");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.EQUAL_EQUAL, tokens.get(0).getType());
-        assertEquals(TokenType.NOT_EQUAL, tokens.get(1).getType());
-        assertEquals(TokenType.LESS_THAN, tokens.get(2).getType());
-        assertEquals(TokenType.GREATER_THAN, tokens.get(3).getType());
-        assertEquals(TokenType.LESS_EQUAL, tokens.get(4).getType());
-        assertEquals(TokenType.GREATER_EQUAL, tokens.get(5).getType());
+        assertEquals(TokenType.EQUAL_EQUAL, tokens.get(0).type());
+        assertEquals(TokenType.NOT_EQUAL, tokens.get(1).type());
+        assertEquals(TokenType.LESS_THAN, tokens.get(2).type());
+        assertEquals(TokenType.GREATER_THAN, tokens.get(3).type());
+        assertEquals(TokenType.LESS_EQUAL, tokens.get(4).type());
+        assertEquals(TokenType.GREATER_EQUAL, tokens.get(5).type());
     }
 
     @Test
@@ -138,11 +138,11 @@ class LexerTest {
         Lexer lexer = new Lexer("(x) { }");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.LEFT_PAREN, tokens.get(0).getType());
-        assertEquals(TokenType.IDENTIFIER, tokens.get(1).getType());
-        assertEquals(TokenType.RIGHT_PAREN, tokens.get(2).getType());
-        assertEquals(TokenType.LEFT_BRACE, tokens.get(3).getType());
-        assertEquals(TokenType.RIGHT_BRACE, tokens.get(4).getType());
+        assertEquals(TokenType.LEFT_PAREN, tokens.get(0).type());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(1).type());
+        assertEquals(TokenType.RIGHT_PAREN, tokens.get(2).type());
+        assertEquals(TokenType.LEFT_BRACE, tokens.get(3).type());
+        assertEquals(TokenType.RIGHT_BRACE, tokens.get(4).type());
     }
 
 
@@ -161,11 +161,11 @@ class LexerTest {
         Lexer lexer = new Lexer("123\n456");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(1, tokens.get(0).getLine());
-        assertEquals(1, tokens.get(0).getColumn());
+        assertEquals(1, tokens.get(0).line());
+        assertEquals(1, tokens.get(0).column());
 
-        assertEquals(2, tokens.get(1).getLine());
-        assertEquals(1, tokens.get(1).getColumn());
+        assertEquals(2, tokens.get(1).line());
+        assertEquals(1, tokens.get(1).column());
     }
 
 
@@ -188,7 +188,7 @@ class LexerTest {
         assertEquals(expected.length, tokens.size());
 
         for (int i = 0; i < expected.length; i++) {
-            assertEquals(expected[i], tokens.get(i).getType());
+            assertEquals(expected[i], tokens.get(i).type());
         }
     }
 
