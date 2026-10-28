@@ -15,10 +15,10 @@ class LexerTest {
     void shouldRecognizeFunctionKeywordsAndComma() {
         List<Token> tokens = new Lexer("function return ,").tokenize();
 
-        assertEquals(TokenType.FUNCTION, tokens.get(0).getType());
-        assertEquals(TokenType.RETURN, tokens.get(1).getType());
-        assertEquals(TokenType.COMMA, tokens.get(2).getType());
-        assertEquals(TokenType.EOF, tokens.get(3).getType());
+        assertEquals(TokenType.FUNCTION, tokens.get(0).type());
+        assertEquals(TokenType.RETURN, tokens.get(1).type());
+        assertEquals(TokenType.COMMA, tokens.get(2).type());
+        assertEquals(TokenType.EOF, tokens.get(3).type());
     }
 
     @Test
@@ -192,5 +192,13 @@ class LexerTest {
         }
     }
 
+    @Test
+    void shouldRejectIntegerFollowedByLetter() {
+        Lexer lexer = new Lexer("let a = 23e");
 
+        assertThrows(
+                LexerException.class,
+                lexer::tokenize
+        );
+    }
 }

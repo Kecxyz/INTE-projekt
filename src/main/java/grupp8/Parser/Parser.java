@@ -22,7 +22,7 @@ public class Parser {
 
     public Parser(List<Token> tokens) {
         this.tokens = List.copyOf(tokens);
-        if (this.tokens.isEmpty() || this.tokens.get(this.tokens.size() - 1).getType() != TokenType.EOF) {
+        if (this.tokens.isEmpty() || this.tokens.get(this.tokens.size() - 1).type() != TokenType.EOF) {
             throw new ParserException("Tokenlistan måste avslutas med en markör för slut på inmatningen");
         }
     }
@@ -33,14 +33,14 @@ public class Parser {
 
     private Token advance() {
         Token token = peek();
-        if (token.getType() != TokenType.EOF) {
+        if (token.type() != TokenType.EOF) {
             current++;
         }
         return token;
     }
 
     private boolean match(TokenType type) {
-        if (peek().getType() != type) {
+        if (peek().type() != type) {
             return false;
         }
         advance();
@@ -48,7 +48,7 @@ public class Parser {
     }
 
     private Token consume(TokenType expected, String message) {
-        if (peek().getType() == expected) {
+        if (peek().type() == expected) {
             return advance();
         }
         throw error(peek(), message);
@@ -56,15 +56,15 @@ public class Parser {
 
     private ParserException error(Token token, String message) {
         return new ParserException(
-                message + " vid " + token.getLine() + ":" + token.getColumn()
-                        + ", fick " + token.getType().getDescription()
+                message + " vid " + token.line() + ":" + token.column()
+                        + ", fick " + token.type().getDescription()
         );
     }
 
     public BlockNode parseProgram() {
         List<ASTNode> statements = new ArrayList<>();
-        while (peek().getType() != TokenType.EOF) {
-            if (peek().getType() == TokenType.FUNCTION) {
+        while (peek().type() != TokenType.EOF) {
+            if (peek().type() == TokenType.FUNCTION) {
                 statements.add(parseFunctionStatement());
             } else {
                 statements.add(parseStatement());
@@ -75,7 +75,7 @@ public class Parser {
     }
 
     public ASTNode parseStatement() {
-        return switch (peek().getType()) {
+        return switch (peek().type()) {
             case LET -> parseLetStatement();
             case IDENTIFIER -> parseIdentifierStatement();
             case PRINT -> parsePrintStatement();
@@ -94,13 +94,13 @@ public class Parser {
         consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
         ASTNode expression = ParserASTConverter.toAST(parseExpression());
         consume(TokenType.SEMICOLON, "Förväntade ';' efter deklarationen");
-        return new LetNode(name.getValue(), expression);
+        return new LetNode(name.value(), expression);
     }
 
     private ASTNode parseIdentifierStatement() {
         Token name = consume(TokenType.IDENTIFIER, "Förväntade ett variabelnamn");
-        if (peek().getType() == TokenType.LEFT_PAREN) {
-            ParserExpression.CallExpression call = parseCall(name.getValue());
+        if (peek().type() == TokenType.LEFT_PAREN) {
+            ParserExpression.CallExpression call = parseCall(name.value());
             consume(TokenType.SEMICOLON, "Förväntade ';' efter funktionsanropet");
             return ParserASTConverter.toAST(call);
         }
@@ -108,7 +108,7 @@ public class Parser {
         consume(TokenType.ASSIGN, "Förväntade '=' efter variabelnamnet");
         ASTNode expression = ParserASTConverter.toAST(parseExpression());
         consume(TokenType.SEMICOLON, "Förväntade ';' efter tilldelningen");
-        return new AssignNode(name.getValue(), expression);
+        return new AssignNode(name.value(), expression);
     }
 
     private PrintNode parsePrintStatement() {
@@ -129,7 +129,7 @@ public class Parser {
 
         ASTNode elseBranch = null;
         if (match(TokenType.ELSE)) {
-            if (peek().getType() == TokenType.IF) {
+            if (peek().type() == TokenType.IF) {
                 elseBranch = parseIfStatement();
             } else {
                 elseBranch = parseBlock();
@@ -150,7 +150,7 @@ public class Parser {
     private BlockNode parseBlock() {
         consume(TokenType.LEFT_BRACE, "Förväntade '{'");
         List<ASTNode> statements = new ArrayList<>();
-        while (peek().getType() != TokenType.RIGHT_BRACE && peek().getType() != TokenType.EOF) {
+        while (peek().type() != TokenType.RIGHT_BRACE && peek().type() != TokenType.EOF) {
             statements.add(parseStatement());
         }
         consume(TokenType.RIGHT_BRACE, "Förväntade '}' efter kodblocket");
@@ -163,13 +163,13 @@ public class Parser {
         consume(TokenType.LEFT_PAREN, "Förväntade '(' efter funktionsnamnet");
 
         List<String> parameters = new ArrayList<>();
-        if (peek().getType() != TokenType.RIGHT_PAREN) {
+        if (peek().type() != TokenType.RIGHT_PAREN) {
             do {
                 Token parameter = consume(TokenType.IDENTIFIER, "Förväntade ett parameternamn");
-                if (parameters.contains(parameter.getValue())) {
-                    throw error(parameter, "Parametern '" + parameter.getValue() + "' har redan angetts");
+                if (parameters.contains(parameter.value())) {
+                    throw error(parameter, "Parametern '" + parameter.value() + "' har redan angetts");
                 }
-                parameters.add(parameter.getValue());
+                parameters.add(parameter.value());
             } while (match(TokenType.COMMA));
         }
         consume(TokenType.RIGHT_PAREN, "Förväntade ')' efter parametrarna");
@@ -181,7 +181,7 @@ public class Parser {
         } finally {
             insideFunction = false;
         }
-        return new FunctionNode(name.getValue(), parameters, body);
+        return new FunctionNode(name.value(), parameters, body);
     }
 
     private ReturnNode parseReturnStatement() {
@@ -190,7 +190,7 @@ public class Parser {
         }
         consume(TokenType.RETURN, "Förväntade 'return'");
         ASTNode expression = null;
-        if (peek().getType() != TokenType.SEMICOLON) {
+        if (peek().type() != TokenType.SEMICOLON) {
             expression = ParserASTConverter.toAST(parseExpression());
         }
         consume(TokenType.SEMICOLON, "Förväntade ';' efter returvärdet");
@@ -209,33 +209,33 @@ public class Parser {
 
     private ParserExpression parseEquality() {
         ParserExpression expression = parseComparison();
-        while (peek().getType() == TokenType.EQUAL_EQUAL || peek().getType() == TokenType.NOT_EQUAL) {
+        while (peek().type() == TokenType.EQUAL_EQUAL || peek().type() == TokenType.NOT_EQUAL) {
             Token operator = advance();
             ParserExpression right = parseComparison();
-            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
+            expression = new ParserExpression.BinaryExpression(expression, operator.type(), right);
         }
         return expression;
     }
 
     private ParserExpression parseComparison() {
         ParserExpression expression = parseAddition();
-        while (peek().getType() == TokenType.LESS_THAN
-                || peek().getType() == TokenType.GREATER_THAN
-                || peek().getType() == TokenType.LESS_EQUAL
-                || peek().getType() == TokenType.GREATER_EQUAL) {
+        while (peek().type() == TokenType.LESS_THAN
+                || peek().type() == TokenType.GREATER_THAN
+                || peek().type() == TokenType.LESS_EQUAL
+                || peek().type() == TokenType.GREATER_EQUAL) {
             Token operator = advance();
             ParserExpression right = parseAddition();
-            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
+            expression = new ParserExpression.BinaryExpression(expression, operator.type(), right);
         }
         return expression;
     }
 
     private ParserExpression parseAddition() {
         ParserExpression expression = parseUnary();
-        while (peek().getType() == TokenType.PLUS || peek().getType() == TokenType.MINUS) {
+        while (peek().type() == TokenType.PLUS || peek().type() == TokenType.MINUS) {
             Token operator = advance();
             ParserExpression right = parseUnary();
-            expression = new ParserExpression.BinaryExpression(expression, operator.getType(), right);
+            expression = new ParserExpression.BinaryExpression(expression, operator.type(), right);
         }
         return expression;
     }
@@ -249,25 +249,25 @@ public class Parser {
 
     private ParserExpression parsePrimary() {
         Token token = peek();
-        if (token.getType() == TokenType.INTEGER) {
+        if (token.type() == TokenType.INTEGER) {
             try {
-                int value = Integer.parseInt(token.getValue());
+                int value = Integer.parseInt(token.value());
                 advance();
                 return new ParserExpression.IntegerLiteral(value);
             } catch (NumberFormatException exception) {
-                throw error(token, "Ogiltigt heltal '" + token.getValue() + "'");
+                throw error(token, "Ogiltigt heltal '" + token.value() + "'");
             }
         }
 
         if (match(TokenType.STRING)) {
-            return new ParserExpression.StringLiteral(token.getValue());
+            return new ParserExpression.StringLiteral(token.value());
         }
 
         if (match(TokenType.IDENTIFIER)) {
-            if (peek().getType() == TokenType.LEFT_PAREN) {
-                return parseCall(token.getValue());
+            if (peek().type() == TokenType.LEFT_PAREN) {
+                return parseCall(token.value());
             }
-            return new ParserExpression.VariableExpression(token.getValue());
+            return new ParserExpression.VariableExpression(token.value());
         }
 
         if (match(TokenType.LEFT_PAREN)) {
@@ -281,7 +281,7 @@ public class Parser {
     private ParserExpression.CallExpression parseCall(String name) {
         consume(TokenType.LEFT_PAREN, "Förväntade '(' efter funktionsnamnet");
         List<ParserExpression> arguments = new ArrayList<>();
-        if (peek().getType() != TokenType.RIGHT_PAREN) {
+        if (peek().type() != TokenType.RIGHT_PAREN) {
             do {
                 arguments.add(parseExpression());
             } while (match(TokenType.COMMA));

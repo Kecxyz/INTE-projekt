@@ -47,6 +47,10 @@ public class Lexer {
             advance();
         }
 
+        if (Character.isLetter(peek()) || peek() == '_') {
+            throw new LexerException("Invalid number at" + startLine + ":" + startColumn);
+        }
+
         String value = source.substring(start, position);
 
         return new Token(
