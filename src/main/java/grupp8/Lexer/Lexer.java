@@ -43,7 +43,7 @@ public class Lexer {
         int startLine = line;
         int startColumn = column;
 
-        while (!isAtEnd() && Character.isDigit(peek())) {
+        while (Character.isDigit(peek())) {
             advance();
         }
 
@@ -59,7 +59,7 @@ public class Lexer {
         int startLine = line;
         int startColumn = column;
 
-        while (!isAtEnd() && (Character.isLetterOrDigit(peek()) || peek() == '_')) {
+        while (Character.isLetterOrDigit(peek()) || peek() == '_') {
             advance();
         }
 
@@ -85,7 +85,7 @@ public class Lexer {
         int startLine = line;
         int startColumn = column;
 
-        while (!isAtEnd() && peek() != '"') {
+        while ( peek() != '"') {
             advance();
         }
 
