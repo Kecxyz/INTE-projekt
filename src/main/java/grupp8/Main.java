@@ -40,12 +40,9 @@ public class Main {
                     """;
         }
 
-        // 1. Lexer turns source text into tokens
         Lexer lexer = new Lexer(sourceCode);
-        // 2. Parser turns tokens directly into your ASTNode objects
         Parser parser = new Parser(lexer.tokenize());
         BlockNode program = parser.parseProgram();
-        // 3. Environment and Interpreter execute the AST via Visitor pattern
         Interpreter interpreter = new Interpreter(new Environment());
         interpreter.interpret(program);
     }
