@@ -1,0 +1,5000 @@
+let visits = 0;
+function add(left, right) {
+    return left + right;
+}
+function subtract(left, right) {
+    return left - right;
+}
+function magnitude(value) {
+    if (value < 0) {
+        return -value;
+    }
+    return value;
+}
+function clamp(value, maximum) {
+    if (value < 0) {
+        return 0;
+    } else if (value > maximum) {
+        return maximum;
+    } else {
+        return value;
+    }
+}
+function sumTo(value) {
+    let total = 0;
+    while (value > 0) {
+        total = total + value;
+        value = value - 1;
+    }
+    return total;
+}
+function label(value) {
+    if (value == 0) {
+        return "noll";
+    } else if (value > 0) {
+        return "positiv";
+    } else {
+        return "negativ";
+    }
+}
+function triangular(value) {
+    if (value <= 0) {
+        return 0;
+    }
+    return value + triangular(value - 1);
+}
+function register(value) {
+    visits = visits + 1;
+    return value;
+}
+function run() {
+    let total = 0;
+    let value = 0;
+    let other = 0;
+    let count = 0;
+    let inner = 0;
+    let text = "";
+    let flag = 0 == 1;
+    value = (3 + 2) - (1 - 1);
+    other = -(1 + 1) + 2;
+    total = total + (value - other);
+    total = total + (3 - (2 - 1));
+    value = 4 - 4;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 22;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(7, subtract(6, 7));
+    other = magnitude(-5);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 8 - 7;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-5-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(13);
+    total = total + (value + other);
+    flag = (10 - 9) >= (-1);
+    if (flag) {
+        total = total + add(10, 9);
+    } else {
+        total = total + subtract(9, 10);
+    }
+    count = 0;
+    value = 0;
+    while (count < 28) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(12);
+    value = register(11);
+    total = total + value;
+    text = "anrop-" + 12;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (13 + 12) - (4 - 11);
+    other = -(11 + 4) + 12;
+    total = total + (value - other);
+    total = total + (13 - (12 - 4));
+    value = 14 - 13;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 32;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(17, subtract(5, 3));
+    other = magnitude(-2);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 18 - 19;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-15-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (3 - 8) >= (-4);
+    if (flag) {
+        total = total + add(3, 8);
+    } else {
+        total = total + subtract(8, 3);
+    }
+    count = 0;
+    value = 0;
+    while (count < 38) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(5);
+    value = register(10);
+    total = total + value;
+    text = "anrop-" + 5;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (6 + 11) - (7 - 8);
+    other = -(8 + 7) + 11;
+    total = total + (value - other);
+    total = total + (6 - (11 - 7));
+    value = 7 - 8;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 42;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(10, subtract(4, 6));
+    other = magnitude(-12);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 11 - 11;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-25-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(14);
+    total = total + (value + other);
+    flag = (13 - 7) >= (-7);
+    if (flag) {
+        total = total + add(13, 7);
+    } else {
+        total = total + subtract(7, 13);
+    }
+    count = 0;
+    value = 0;
+    while (count < 48) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(15);
+    value = register(9);
+    total = total + value;
+    text = "anrop-" + 15;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (16 + 10) - (3 - 5);
+    other = -(5 + 3) + 10;
+    total = total + (value - other);
+    total = total + (16 - (10 - 3));
+    value = 17 - 17;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 52;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(3, subtract(3, 9));
+    other = magnitude(-9);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 4 - 3;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-35-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(2);
+    total = total + (value + other);
+    flag = (6 - 6) >= (-3);
+    if (flag) {
+        total = total + add(6, 6);
+    } else {
+        total = total + subtract(6, 6);
+    }
+    count = 0;
+    value = 0;
+    while (count < 58) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(8);
+    value = register(8);
+    total = total + value;
+    text = "anrop-" + 8;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (9 + 9) - (6 - 2);
+    other = -(2 + 6) + 9;
+    total = total + (value - other);
+    total = total + (9 - (9 - 6));
+    value = 10 - 9;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 21;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(13, subtract(2, 5));
+    other = magnitude(-6);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 14 - 15;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-45-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(6);
+    total = total + (value + other);
+    flag = (16 - 5) >= (-6);
+    if (flag) {
+        total = total + add(16, 5);
+    } else {
+        total = total + subtract(5, 16);
+    }
+    count = 0;
+    value = 0;
+    while (count < 27) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(18);
+    value = register(7);
+    total = total + value;
+    text = "anrop-" + 18;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (19 + 8) - (2 - 12);
+    other = -(12 + 2) + 8;
+    total = total + (value - other);
+    total = total + (19 - (8 - 2));
+    value = 3 - 4;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 31;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(6, subtract(12, 8));
+    other = magnitude(-3);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 7 - 7;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-55-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(3);
+    total = total + (value + other);
+    flag = (9 - 4) >= (-2);
+    if (flag) {
+        total = total + add(9, 4);
+    } else {
+        total = total + subtract(4, 9);
+    }
+    count = 0;
+    value = 0;
+    while (count < 37) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(11);
+    value = register(6);
+    total = total + value;
+    text = "anrop-" + 11;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (12 + 7) - (5 - 9);
+    other = -(9 + 5) + 7;
+    total = total + (value - other);
+    total = total + (12 - (7 - 5));
+    value = 13 - 13;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 41;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(16, subtract(11, 4));
+    other = magnitude(-13);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 17 - 16;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-65-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (19 - 3) >= (-5);
+    if (flag) {
+        total = total + add(19, 3);
+    } else {
+        total = total + subtract(3, 19);
+    }
+    count = 0;
+    value = 0;
+    while (count < 47) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(4);
+    value = register(5);
+    total = total + value;
+    text = "anrop-" + 4;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (5 + 6) - (1 - 6);
+    other = -(6 + 1) + 6;
+    total = total + (value - other);
+    total = total + (5 - (6 - 1));
+    value = 6 - 5;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 51;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(9, subtract(10, 7));
+    other = magnitude(-10);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 10 - 11;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-75-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(11);
+    total = total + (value + other);
+    flag = (12 - 2) >= (-1);
+    if (flag) {
+        total = total + add(12, 2);
+    } else {
+        total = total + subtract(2, 12);
+    }
+    count = 0;
+    value = 0;
+    while (count < 57) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(14);
+    value = register(4);
+    total = total + value;
+    text = "anrop-" + 14;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (15 + 5) - (4 - 3);
+    other = -(3 + 4) + 5;
+    total = total + (value - other);
+    total = total + (15 - (5 - 4));
+    value = 16 - 17;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 20;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(19, subtract(9, 3));
+    other = magnitude(-7);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 3 - 3;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-85-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (5 - 12) >= (-4);
+    if (flag) {
+        total = total + add(5, 12);
+    } else {
+        total = total + subtract(12, 5);
+    }
+    count = 0;
+    value = 0;
+    while (count < 26) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(7);
+    value = register(3);
+    total = total + value;
+    text = "anrop-" + 7;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (8 + 4) - (7 - 13);
+    other = -(13 + 7) + 4;
+    total = total + (value - other);
+    total = total + (8 - (4 - 7));
+    value = 9 - 9;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 30;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(12, subtract(8, 6));
+    other = magnitude(-4);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 13 - 12;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-95-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(12);
+    total = total + (value + other);
+    flag = (15 - 11) >= (-7);
+    if (flag) {
+        total = total + add(15, 11);
+    } else {
+        total = total + subtract(11, 15);
+    }
+    count = 0;
+    value = 0;
+    while (count < 36) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(17);
+    value = register(2);
+    total = total + value;
+    text = "anrop-" + 17;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (18 + 3) - (3 - 10);
+    other = -(10 + 3) + 3;
+    total = total + (value - other);
+    total = total + (18 - (3 - 3));
+    value = 19 - 18;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 40;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(5, subtract(7, 9));
+    other = magnitude(-1);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 6 - 7;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-105-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (8 - 10) >= (-3);
+    if (flag) {
+        total = total + add(8, 10);
+    } else {
+        total = total + subtract(10, 8);
+    }
+    count = 0;
+    value = 0;
+    while (count < 46) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(10);
+    value = register(12);
+    total = total + value;
+    text = "anrop-" + 10;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (11 + 2) - (6 - 7);
+    other = -(7 + 6) + 2;
+    total = total + (value - other);
+    total = total + (11 - (2 - 6));
+    value = 12 - 13;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 50;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(15, subtract(6, 5));
+    other = magnitude(-11);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 16 - 16;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-115-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(13);
+    total = total + (value + other);
+    flag = (18 - 9) >= (-6);
+    if (flag) {
+        total = total + add(18, 9);
+    } else {
+        total = total + subtract(9, 18);
+    }
+    count = 0;
+    value = 0;
+    while (count < 56) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(3);
+    value = register(11);
+    total = total + value;
+    text = "anrop-" + 3;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (4 + 12) - (2 - 4);
+    other = -(4 + 2) + 12;
+    total = total + (value - other);
+    total = total + (4 - (12 - 2));
+    value = 5 - 5;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 60;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(8, subtract(5, 8));
+    other = magnitude(-8);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 9 - 8;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-125-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(1);
+    total = total + (value + other);
+    flag = (11 - 8) >= (-2);
+    if (flag) {
+        total = total + add(11, 8);
+    } else {
+        total = total + subtract(8, 11);
+    }
+    count = 0;
+    value = 0;
+    while (count < 25) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(13);
+    value = register(10);
+    total = total + value;
+    text = "anrop-" + 13;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (14 + 11) - (5 - 1);
+    other = -(1 + 5) + 11;
+    total = total + (value - other);
+    total = total + (14 - (11 - 5));
+    value = 15 - 14;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 29;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(18, subtract(4, 4));
+    other = magnitude(-5);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 19 - 20;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-135-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(5);
+    total = total + (value + other);
+    flag = (4 - 7) >= (-5);
+    if (flag) {
+        total = total + add(4, 7);
+    } else {
+        total = total + subtract(7, 4);
+    }
+    count = 0;
+    value = 0;
+    while (count < 35) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(6);
+    value = register(9);
+    total = total + value;
+    text = "anrop-" + 6;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (7 + 10) - (1 - 11);
+    other = -(11 + 1) + 10;
+    total = total + (value - other);
+    total = total + (7 - (10 - 1));
+    value = 8 - 9;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 39;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(11, subtract(3, 7));
+    other = magnitude(-2);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 12 - 12;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-145-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (14 - 6) >= (-1);
+    if (flag) {
+        total = total + add(14, 6);
+    } else {
+        total = total + subtract(6, 14);
+    }
+    count = 0;
+    value = 0;
+    while (count < 45) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(16);
+    value = register(8);
+    total = total + value;
+    text = "anrop-" + 16;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (17 + 9) - (4 - 8);
+    other = -(8 + 4) + 9;
+    total = total + (value - other);
+    total = total + (17 - (9 - 4));
+    value = 18 - 18;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 49;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(4, subtract(2, 3));
+    other = magnitude(-12);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 5 - 4;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-155-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(6);
+    total = total + (value + other);
+    flag = (7 - 5) >= (-4);
+    if (flag) {
+        total = total + add(7, 5);
+    } else {
+        total = total + subtract(5, 7);
+    }
+    count = 0;
+    value = 0;
+    while (count < 55) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(9);
+    value = register(7);
+    total = total + value;
+    text = "anrop-" + 9;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (10 + 8) - (7 - 5);
+    other = -(5 + 7) + 8;
+    total = total + (value - other);
+    total = total + (10 - (8 - 7));
+    value = 11 - 10;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 59;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(14, subtract(12, 6));
+    other = magnitude(-9);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 15 - 16;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-165-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (17 - 4) >= (-7);
+    if (flag) {
+        total = total + add(17, 4);
+    } else {
+        total = total + subtract(4, 17);
+    }
+    count = 0;
+    value = 0;
+    while (count < 24) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(19);
+    value = register(6);
+    total = total + value;
+    text = "anrop-" + 19;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (3 + 7) - (3 - 2);
+    other = -(2 + 3) + 7;
+    total = total + (value - other);
+    total = total + (3 - (7 - 3));
+    value = 4 - 5;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 28;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(7, subtract(11, 9));
+    other = magnitude(-6);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 8 - 8;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-175-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (10 - 3) >= (-3);
+    if (flag) {
+        total = total + add(10, 3);
+    } else {
+        total = total + subtract(3, 10);
+    }
+    count = 0;
+    value = 0;
+    while (count < 34) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(12);
+    value = register(5);
+    total = total + value;
+    text = "anrop-" + 12;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (13 + 6) - (6 - 12);
+    other = -(12 + 6) + 6;
+    total = total + (value - other);
+    total = total + (13 - (6 - 6));
+    value = 14 - 14;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 38;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(17, subtract(10, 5));
+    other = magnitude(-3);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 18 - 17;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-185-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(11);
+    total = total + (value + other);
+    flag = (3 - 2) >= (-6);
+    if (flag) {
+        total = total + add(3, 2);
+    } else {
+        total = total + subtract(2, 3);
+    }
+    count = 0;
+    value = 0;
+    while (count < 44) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(5);
+    value = register(4);
+    total = total + value;
+    text = "anrop-" + 5;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (6 + 5) - (2 - 9);
+    other = -(9 + 2) + 5;
+    total = total + (value - other);
+    total = total + (6 - (5 - 2));
+    value = 7 - 6;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 48;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(10, subtract(9, 8));
+    other = magnitude(-13);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 11 - 12;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-195-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (13 - 12) >= (-2);
+    if (flag) {
+        total = total + add(13, 12);
+    } else {
+        total = total + subtract(12, 13);
+    }
+    count = 0;
+    value = 0;
+    while (count < 54) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(15);
+    value = register(3);
+    total = total + value;
+    text = "anrop-" + 15;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (16 + 4) - (5 - 6);
+    other = -(6 + 5) + 4;
+    total = total + (value - other);
+    total = total + (16 - (4 - 5));
+    value = 17 - 18;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 58;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(3, subtract(8, 4));
+    other = magnitude(-10);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 4 - 4;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-205-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(12);
+    total = total + (value + other);
+    flag = (6 - 11) >= (-5);
+    if (flag) {
+        total = total + add(6, 11);
+    } else {
+        total = total + subtract(11, 6);
+    }
+    count = 0;
+    value = 0;
+    while (count < 23) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(8);
+    value = register(2);
+    total = total + value;
+    text = "anrop-" + 8;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (9 + 3) - (1 - 3);
+    other = -(3 + 1) + 3;
+    total = total + (value - other);
+    total = total + (9 - (3 - 1));
+    value = 10 - 10;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 27;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(13, subtract(7, 7));
+    other = magnitude(-7);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 14 - 13;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-215-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (16 - 10) >= (-1);
+    if (flag) {
+        total = total + add(16, 10);
+    } else {
+        total = total + subtract(10, 16);
+    }
+    count = 0;
+    value = 0;
+    while (count < 33) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(18);
+    value = register(12);
+    total = total + value;
+    text = "anrop-" + 18;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (19 + 2) - (4 - 13);
+    other = -(13 + 4) + 2;
+    total = total + (value - other);
+    total = total + (19 - (2 - 4));
+    value = 3 - 2;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 37;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(6, subtract(6, 3));
+    other = magnitude(-4);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 7 - 8;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-225-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(4);
+    total = total + (value + other);
+    flag = (9 - 9) >= (-4);
+    if (flag) {
+        total = total + add(9, 9);
+    } else {
+        total = total + subtract(9, 9);
+    }
+    count = 0;
+    value = 0;
+    while (count < 43) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(11);
+    value = register(11);
+    total = total + value;
+    text = "anrop-" + 11;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (12 + 12) - (7 - 10);
+    other = -(10 + 7) + 12;
+    total = total + (value - other);
+    total = total + (12 - (12 - 7));
+    value = 13 - 14;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 47;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(16, subtract(5, 6));
+    other = magnitude(-1);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 17 - 17;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-235-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (19 - 8) >= (-7);
+    if (flag) {
+        total = total + add(19, 8);
+    } else {
+        total = total + subtract(8, 19);
+    }
+    count = 0;
+    value = 0;
+    while (count < 53) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(4);
+    value = register(10);
+    total = total + value;
+    text = "anrop-" + 4;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (5 + 11) - (3 - 7);
+    other = -(7 + 3) + 11;
+    total = total + (value - other);
+    total = total + (5 - (11 - 3));
+    value = 6 - 6;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 57;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(9, subtract(4, 9));
+    other = magnitude(-11);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 10 - 9;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-245-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(5);
+    total = total + (value + other);
+    flag = (12 - 7) >= (-3);
+    if (flag) {
+        total = total + add(12, 7);
+    } else {
+        total = total + subtract(7, 12);
+    }
+    count = 0;
+    value = 0;
+    while (count < 22) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(14);
+    value = register(9);
+    total = total + value;
+    text = "anrop-" + 14;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (15 + 10) - (6 - 4);
+    other = -(4 + 6) + 10;
+    total = total + (value - other);
+    total = total + (15 - (10 - 6));
+    value = 16 - 15;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 26;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(19, subtract(3, 5));
+    other = magnitude(-8);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 3 - 4;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-255-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (5 - 6) >= (-6);
+    if (flag) {
+        total = total + add(5, 6);
+    } else {
+        total = total + subtract(6, 5);
+    }
+    count = 0;
+    value = 0;
+    while (count < 32) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(7);
+    value = register(8);
+    total = total + value;
+    text = "anrop-" + 7;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (8 + 9) - (2 - 1);
+    other = -(1 + 2) + 9;
+    total = total + (value - other);
+    total = total + (8 - (9 - 2));
+    value = 9 - 10;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 36;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(12, subtract(2, 8));
+    other = magnitude(-5);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 13 - 13;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-265-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(6);
+    total = total + (value + other);
+    flag = (15 - 5) >= (-2);
+    if (flag) {
+        total = total + add(15, 5);
+    } else {
+        total = total + subtract(5, 15);
+    }
+    count = 0;
+    value = 0;
+    while (count < 42) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(17);
+    value = register(7);
+    total = total + value;
+    text = "anrop-" + 17;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (18 + 8) - (5 - 11);
+    other = -(11 + 5) + 8;
+    total = total + (value - other);
+    total = total + (18 - (8 - 5));
+    value = 19 - 19;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 46;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(5, subtract(12, 4));
+    other = magnitude(-2);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 6 - 5;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-275-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (8 - 4) >= (-5);
+    if (flag) {
+        total = total + add(8, 4);
+    } else {
+        total = total + subtract(4, 8);
+    }
+    count = 0;
+    value = 0;
+    while (count < 52) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(10);
+    value = register(6);
+    total = total + value;
+    text = "anrop-" + 10;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (11 + 7) - (1 - 8);
+    other = -(8 + 1) + 7;
+    total = total + (value - other);
+    total = total + (11 - (7 - 1));
+    value = 12 - 11;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 56;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(15, subtract(11, 7));
+    other = magnitude(-12);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 16 - 17;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-285-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(14);
+    total = total + (value + other);
+    flag = (18 - 3) >= (-1);
+    if (flag) {
+        total = total + add(18, 3);
+    } else {
+        total = total + subtract(3, 18);
+    }
+    count = 0;
+    value = 0;
+    while (count < 21) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(3);
+    value = register(5);
+    total = total + value;
+    text = "anrop-" + 3;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (4 + 6) - (4 - 5);
+    other = -(5 + 4) + 6;
+    total = total + (value - other);
+    total = total + (4 - (6 - 4));
+    value = 5 - 6;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 25;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(8, subtract(10, 3));
+    other = magnitude(-9);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 9 - 9;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-295-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(11);
+    total = total + (value + other);
+    flag = (11 - 2) >= (-4);
+    if (flag) {
+        total = total + add(11, 2);
+    } else {
+        total = total + subtract(2, 11);
+    }
+    count = 0;
+    value = 0;
+    while (count < 31) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(13);
+    value = register(4);
+    total = total + value;
+    text = "anrop-" + 13;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (14 + 5) - (7 - 2);
+    other = -(2 + 7) + 5;
+    total = total + (value - other);
+    total = total + (14 - (5 - 7));
+    value = 15 - 15;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 35;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(18, subtract(9, 6));
+    other = magnitude(-6);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 19 - 18;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-305-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(6);
+    total = total + (value + other);
+    flag = (4 - 12) >= (-7);
+    if (flag) {
+        total = total + add(4, 12);
+    } else {
+        total = total + subtract(12, 4);
+    }
+    count = 0;
+    value = 0;
+    while (count < 41) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(6);
+    value = register(3);
+    total = total + value;
+    text = "anrop-" + 6;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (7 + 4) - (3 - 12);
+    other = -(12 + 3) + 4;
+    total = total + (value - other);
+    total = total + (7 - (4 - 3));
+    value = 8 - 7;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 45;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(11, subtract(8, 9));
+    other = magnitude(-3);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 12 - 13;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-315-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(3);
+    total = total + (value + other);
+    flag = (14 - 11) >= (-3);
+    if (flag) {
+        total = total + add(14, 11);
+    } else {
+        total = total + subtract(11, 14);
+    }
+    count = 0;
+    value = 0;
+    while (count < 51) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(16);
+    value = register(2);
+    total = total + value;
+    text = "anrop-" + 16;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (17 + 3) - (6 - 9);
+    other = -(9 + 6) + 3;
+    total = total + (value - other);
+    total = total + (17 - (3 - 6));
+    value = 18 - 19;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 55;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(4, subtract(7, 5));
+    other = magnitude(-13);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 5 - 5;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-325-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (7 - 10) >= (-6);
+    if (flag) {
+        total = total + add(7, 10);
+    } else {
+        total = total + subtract(10, 7);
+    }
+    count = 0;
+    value = 0;
+    while (count < 20) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(9);
+    value = register(12);
+    total = total + value;
+    text = "anrop-" + 9;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (10 + 2) - (2 - 6);
+    other = -(6 + 2) + 2;
+    total = total + (value - other);
+    total = total + (10 - (2 - 2));
+    value = 11 - 11;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 24;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(14, subtract(6, 8));
+    other = magnitude(-10);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 15 - 14;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-335-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(4);
+    total = total + (value + other);
+    flag = (17 - 9) >= (-2);
+    if (flag) {
+        total = total + add(17, 9);
+    } else {
+        total = total + subtract(9, 17);
+    }
+    count = 0;
+    value = 0;
+    while (count < 30) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(19);
+    value = register(11);
+    total = total + value;
+    text = "anrop-" + 19;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (3 + 12) - (5 - 3);
+    other = -(3 + 5) + 12;
+    total = total + (value - other);
+    total = total + (3 - (12 - 5));
+    value = 4 - 3;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 34;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(7, subtract(5, 4));
+    other = magnitude(-7);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 8 - 9;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-345-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (10 - 8) >= (-5);
+    if (flag) {
+        total = total + add(10, 8);
+    } else {
+        total = total + subtract(8, 10);
+    }
+    count = 0;
+    value = 0;
+    while (count < 40) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(12);
+    value = register(10);
+    total = total + value;
+    text = "anrop-" + 12;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (13 + 11) - (1 - 13);
+    other = -(13 + 1) + 11;
+    total = total + (value - other);
+    total = total + (13 - (11 - 1));
+    value = 14 - 15;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 44;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(17, subtract(4, 7));
+    other = magnitude(-4);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 18 - 18;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-355-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(12);
+    total = total + (value + other);
+    flag = (3 - 7) >= (-1);
+    if (flag) {
+        total = total + add(3, 7);
+    } else {
+        total = total + subtract(7, 3);
+    }
+    count = 0;
+    value = 0;
+    while (count < 50) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(5);
+    value = register(9);
+    total = total + value;
+    text = "anrop-" + 5;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (6 + 10) - (4 - 10);
+    other = -(10 + 4) + 10;
+    total = total + (value - other);
+    total = total + (6 - (10 - 4));
+    value = 7 - 7;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 54;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(10, subtract(3, 3));
+    other = magnitude(-1);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 11 - 10;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-365-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (13 - 6) >= (-4);
+    if (flag) {
+        total = total + add(13, 6);
+    } else {
+        total = total + subtract(6, 13);
+    }
+    count = 0;
+    value = 0;
+    while (count < 60) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(15);
+    value = register(8);
+    total = total + value;
+    text = "anrop-" + 15;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (16 + 9) - (7 - 7);
+    other = -(7 + 7) + 9;
+    total = total + (value - other);
+    total = total + (16 - (9 - 7));
+    value = 17 - 16;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 23;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(3, subtract(2, 6));
+    other = magnitude(-11);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 4 - 5;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-375-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(13);
+    total = total + (value + other);
+    flag = (6 - 5) >= (-7);
+    if (flag) {
+        total = total + add(6, 5);
+    } else {
+        total = total + subtract(5, 6);
+    }
+    count = 0;
+    value = 0;
+    while (count < 29) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(8);
+    value = register(7);
+    total = total + value;
+    text = "anrop-" + 8;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (9 + 8) - (3 - 4);
+    other = -(4 + 3) + 8;
+    total = total + (value - other);
+    total = total + (9 - (8 - 3));
+    value = 10 - 11;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 33;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(13, subtract(12, 9));
+    other = magnitude(-8);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 14 - 14;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-385-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (16 - 4) >= (-3);
+    if (flag) {
+        total = total + add(16, 4);
+    } else {
+        total = total + subtract(4, 16);
+    }
+    count = 0;
+    value = 0;
+    while (count < 39) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(18);
+    value = register(6);
+    total = total + value;
+    text = "anrop-" + 18;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (19 + 7) - (6 - 1);
+    other = -(1 + 6) + 7;
+    total = total + (value - other);
+    total = total + (19 - (7 - 6));
+    value = 3 - 3;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 43;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(6, subtract(11, 5));
+    other = magnitude(-5);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 7 - 6;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-395-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(5);
+    total = total + (value + other);
+    flag = (9 - 3) >= (-6);
+    if (flag) {
+        total = total + add(9, 3);
+    } else {
+        total = total + subtract(3, 9);
+    }
+    count = 0;
+    value = 0;
+    while (count < 49) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(11);
+    value = register(5);
+    total = total + value;
+    text = "anrop-" + 11;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (12 + 6) - (2 - 11);
+    other = -(11 + 2) + 6;
+    total = total + (value - other);
+    total = total + (12 - (6 - 2));
+    value = 13 - 12;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 53;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(16, subtract(10, 8));
+    other = magnitude(-2);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 17 - 18;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-405-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(2);
+    total = total + (value + other);
+    flag = (19 - 2) >= (-2);
+    if (flag) {
+        total = total + add(19, 2);
+    } else {
+        total = total + subtract(2, 19);
+    }
+    count = 0;
+    value = 0;
+    while (count < 59) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(4);
+    value = register(4);
+    total = total + value;
+    text = "anrop-" + 4;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (5 + 5) - (5 - 8);
+    other = -(8 + 5) + 5;
+    total = total + (value - other);
+    total = total + (5 - (5 - 5));
+    value = 6 - 7;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 22;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(9, subtract(9, 4));
+    other = magnitude(-12);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 10 - 10;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-415-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(6);
+    total = total + (value + other);
+    flag = (12 - 12) >= (-5);
+    if (flag) {
+        total = total + add(12, 12);
+    } else {
+        total = total + subtract(12, 12);
+    }
+    count = 0;
+    value = 0;
+    while (count < 28) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(14);
+    value = register(3);
+    total = total + value;
+    text = "anrop-" + 14;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (15 + 4) - (1 - 5);
+    other = -(5 + 1) + 4;
+    total = total + (value - other);
+    total = total + (15 - (4 - 1));
+    value = 16 - 16;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 32;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(19, subtract(8, 7));
+    other = magnitude(-9);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 3 - 2;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-425-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (5 - 11) >= (-1);
+    if (flag) {
+        total = total + add(5, 11);
+    } else {
+        total = total + subtract(11, 5);
+    }
+    count = 0;
+    value = 0;
+    while (count < 38) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(7);
+    value = register(2);
+    total = total + value;
+    text = "anrop-" + 7;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (8 + 3) - (4 - 2);
+    other = -(2 + 4) + 3;
+    total = total + (value - other);
+    total = total + (8 - (3 - 4));
+    value = 9 - 8;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 42;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(12, subtract(7, 3));
+    other = magnitude(-6);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 13 - 14;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-435-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (15 - 10) >= (-4);
+    if (flag) {
+        total = total + add(15, 10);
+    } else {
+        total = total + subtract(10, 15);
+    }
+    count = 0;
+    value = 0;
+    while (count < 48) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(17);
+    value = register(12);
+    total = total + value;
+    text = "anrop-" + 17;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (18 + 2) - (7 - 12);
+    other = -(12 + 7) + 2;
+    total = total + (value - other);
+    total = total + (18 - (2 - 7));
+    value = 19 - 20;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 52;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(5, subtract(6, 6));
+    other = magnitude(-3);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 6 - 6;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-445-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(11);
+    total = total + (value + other);
+    flag = (8 - 9) >= (-7);
+    if (flag) {
+        total = total + add(8, 9);
+    } else {
+        total = total + subtract(9, 8);
+    }
+    count = 0;
+    value = 0;
+    while (count < 58) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(10);
+    value = register(11);
+    total = total + value;
+    text = "anrop-" + 10;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (11 + 12) - (3 - 9);
+    other = -(9 + 3) + 12;
+    total = total + (value - other);
+    total = total + (11 - (12 - 3));
+    value = 12 - 12;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 21;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(15, subtract(5, 9));
+    other = magnitude(-13);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 16 - 15;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-455-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (18 - 8) >= (-3);
+    if (flag) {
+        total = total + add(18, 8);
+    } else {
+        total = total + subtract(8, 18);
+    }
+    count = 0;
+    value = 0;
+    while (count < 27) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(3);
+    value = register(10);
+    total = total + value;
+    text = "anrop-" + 3;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (4 + 11) - (6 - 6);
+    other = -(6 + 6) + 11;
+    total = total + (value - other);
+    total = total + (4 - (11 - 6));
+    value = 5 - 4;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 31;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(8, subtract(4, 5));
+    other = magnitude(-10);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 9 - 10;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-465-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(12);
+    total = total + (value + other);
+    flag = (11 - 7) >= (-6);
+    if (flag) {
+        total = total + add(11, 7);
+    } else {
+        total = total + subtract(7, 11);
+    }
+    count = 0;
+    value = 0;
+    while (count < 37) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(13);
+    value = register(9);
+    total = total + value;
+    text = "anrop-" + 13;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (14 + 10) - (2 - 3);
+    other = -(3 + 2) + 10;
+    total = total + (value - other);
+    total = total + (14 - (10 - 2));
+    value = 15 - 16;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 41;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(18, subtract(3, 8));
+    other = magnitude(-7);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 19 - 19;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-475-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (4 - 6) >= (-2);
+    if (flag) {
+        total = total + add(4, 6);
+    } else {
+        total = total + subtract(6, 4);
+    }
+    count = 0;
+    value = 0;
+    while (count < 47) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(6);
+    value = register(8);
+    total = total + value;
+    text = "anrop-" + 6;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (7 + 9) - (5 - 13);
+    other = -(13 + 5) + 9;
+    total = total + (value - other);
+    total = total + (7 - (9 - 5));
+    value = 8 - 8;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 51;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(11, subtract(2, 4));
+    other = magnitude(-4);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 12 - 11;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-485-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(4);
+    total = total + (value + other);
+    flag = (14 - 5) >= (-5);
+    if (flag) {
+        total = total + add(14, 5);
+    } else {
+        total = total + subtract(5, 14);
+    }
+    count = 0;
+    value = 0;
+    while (count < 57) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(16);
+    value = register(7);
+    total = total + value;
+    text = "anrop-" + 16;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (17 + 8) - (1 - 10);
+    other = -(10 + 1) + 8;
+    total = total + (value - other);
+    total = total + (17 - (8 - 1));
+    value = 18 - 17;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 20;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(4, subtract(12, 7));
+    other = magnitude(-1);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 5 - 6;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-495-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (7 - 4) >= (-1);
+    if (flag) {
+        total = total + add(7, 4);
+    } else {
+        total = total + subtract(4, 7);
+    }
+    count = 0;
+    value = 0;
+    while (count < 26) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(9);
+    value = register(6);
+    total = total + value;
+    text = "anrop-" + 9;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (10 + 7) - (4 - 7);
+    other = -(7 + 4) + 7;
+    total = total + (value - other);
+    total = total + (10 - (7 - 4));
+    value = 11 - 12;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 30;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(14, subtract(11, 3));
+    other = magnitude(-11);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 15 - 15;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-505-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(5);
+    total = total + (value + other);
+    flag = (17 - 3) >= (-4);
+    if (flag) {
+        total = total + add(17, 3);
+    } else {
+        total = total + subtract(3, 17);
+    }
+    count = 0;
+    value = 0;
+    while (count < 36) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(19);
+    value = register(5);
+    total = total + value;
+    text = "anrop-" + 19;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (3 + 6) - (7 - 4);
+    other = -(4 + 7) + 6;
+    total = total + (value - other);
+    total = total + (3 - (6 - 7));
+    value = 4 - 4;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 40;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(7, subtract(10, 6));
+    other = magnitude(-8);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 8 - 7;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-515-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (10 - 2) >= (-7);
+    if (flag) {
+        total = total + add(10, 2);
+    } else {
+        total = total + subtract(2, 10);
+    }
+    count = 0;
+    value = 0;
+    while (count < 46) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(12);
+    value = register(4);
+    total = total + value;
+    text = "anrop-" + 12;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (13 + 5) - (3 - 1);
+    other = -(1 + 3) + 5;
+    total = total + (value - other);
+    total = total + (13 - (5 - 3));
+    value = 14 - 13;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 50;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(17, subtract(9, 9));
+    other = magnitude(-5);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 18 - 19;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-525-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(6);
+    total = total + (value + other);
+    flag = (3 - 12) >= (-3);
+    if (flag) {
+        total = total + add(3, 12);
+    } else {
+        total = total + subtract(12, 3);
+    }
+    count = 0;
+    value = 0;
+    while (count < 56) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(5);
+    value = register(3);
+    total = total + value;
+    text = "anrop-" + 5;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (6 + 4) - (6 - 11);
+    other = -(11 + 6) + 4;
+    total = total + (value - other);
+    total = total + (6 - (4 - 6));
+    value = 7 - 8;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 60;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(10, subtract(8, 5));
+    other = magnitude(-2);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 11 - 11;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-535-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (13 - 11) >= (-6);
+    if (flag) {
+        total = total + add(13, 11);
+    } else {
+        total = total + subtract(11, 13);
+    }
+    count = 0;
+    value = 0;
+    while (count < 25) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(15);
+    value = register(2);
+    total = total + value;
+    text = "anrop-" + 15;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (16 + 3) - (2 - 8);
+    other = -(8 + 2) + 3;
+    total = total + (value - other);
+    total = total + (16 - (3 - 2));
+    value = 17 - 17;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 29;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(3, subtract(7, 8));
+    other = magnitude(-12);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 4 - 3;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-545-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (6 - 10) >= (-2);
+    if (flag) {
+        total = total + add(6, 10);
+    } else {
+        total = total + subtract(10, 6);
+    }
+    count = 0;
+    value = 0;
+    while (count < 35) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(8);
+    value = register(12);
+    total = total + value;
+    text = "anrop-" + 8;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (9 + 2) - (5 - 5);
+    other = -(5 + 5) + 2;
+    total = total + (value - other);
+    total = total + (9 - (2 - 5));
+    value = 10 - 9;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 39;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(13, subtract(6, 4));
+    other = magnitude(-9);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 14 - 15;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-555-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(11);
+    total = total + (value + other);
+    flag = (16 - 9) >= (-5);
+    if (flag) {
+        total = total + add(16, 9);
+    } else {
+        total = total + subtract(9, 16);
+    }
+    count = 0;
+    value = 0;
+    while (count < 45) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(18);
+    value = register(11);
+    total = total + value;
+    text = "anrop-" + 18;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (19 + 12) - (1 - 2);
+    other = -(2 + 1) + 12;
+    total = total + (value - other);
+    total = total + (19 - (12 - 1));
+    value = 3 - 4;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 49;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(6, subtract(5, 7));
+    other = magnitude(-6);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 7 - 7;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-565-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(15);
+    total = total + (value + other);
+    flag = (9 - 8) >= (-1);
+    if (flag) {
+        total = total + add(9, 8);
+    } else {
+        total = total + subtract(8, 9);
+    }
+    count = 0;
+    value = 0;
+    while (count < 55) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(11);
+    value = register(10);
+    total = total + value;
+    text = "anrop-" + 11;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (12 + 11) - (4 - 12);
+    other = -(12 + 4) + 11;
+    total = total + (value - other);
+    total = total + (12 - (11 - 4));
+    value = 13 - 13;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 59;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(16, subtract(4, 3));
+    other = magnitude(-3);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 17 - 16;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-575-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(3);
+    total = total + (value + other);
+    flag = (19 - 7) >= (-4);
+    if (flag) {
+        total = total + add(19, 7);
+    } else {
+        total = total + subtract(7, 19);
+    }
+    count = 0;
+    value = 0;
+    while (count < 24) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(4);
+    value = register(9);
+    total = total + value;
+    text = "anrop-" + 4;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (5 + 10) - (7 - 9);
+    other = -(9 + 7) + 10;
+    total = total + (value - other);
+    total = total + (5 - (10 - 7));
+    value = 6 - 5;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 28;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(9, subtract(3, 6));
+    other = magnitude(-13);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 10 - 11;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-585-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(1);
+    other = sumTo(7);
+    total = total + (value + other);
+    flag = (12 - 6) >= (-7);
+    if (flag) {
+        total = total + add(12, 6);
+    } else {
+        total = total + subtract(6, 12);
+    }
+    count = 0;
+    value = 0;
+    while (count < 34) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(14);
+    value = register(8);
+    total = total + value;
+    text = "anrop-" + 14;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (15 + 9) - (3 - 6);
+    other = -(6 + 3) + 9;
+    total = total + (value - other);
+    total = total + (15 - (9 - 3));
+    value = 16 - 17;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 38;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(19, subtract(2, 9));
+    other = magnitude(-10);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 3 - 3;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-595-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(2);
+    other = sumTo(4);
+    total = total + (value + other);
+    flag = (5 - 5) >= (-3);
+    if (flag) {
+        total = total + add(5, 5);
+    } else {
+        total = total + subtract(5, 5);
+    }
+    count = 0;
+    value = 0;
+    while (count < 44) {
+        value = add(value, clamp(count, 5));
+        count = count + 1;
+    }
+    total = total + value;
+    register(7);
+    value = register(7);
+    total = total + value;
+    text = "anrop-" + 7;
+    if (text < "z") {
+        total = total + 5;
+    }
+    value = (8 + 8) - (6 - 3);
+    other = -(3 + 6) + 8;
+    total = total + (value - other);
+    total = total + (8 - (8 - 6));
+    value = 9 - 9;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 48;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 4) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(12, subtract(12, 5));
+    other = magnitude(-7);
+    value = clamp(value - other, 5);
+    total = total + value;
+    value = 13 - 12;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-605-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(3);
+    other = sumTo(8);
+    total = total + (value + other);
+    flag = (15 - 4) >= (-6);
+    if (flag) {
+        total = total + add(15, 4);
+    } else {
+        total = total + subtract(4, 15);
+    }
+    count = 0;
+    value = 0;
+    while (count < 54) {
+        value = add(value, clamp(count, 8));
+        count = count + 1;
+    }
+    total = total + value;
+    register(17);
+    value = register(6);
+    total = total + value;
+    text = "anrop-" + 17;
+    if (text < "z") {
+        total = total + 1;
+    }
+    value = (18 + 7) - (2 - 13);
+    other = -(13 + 2) + 7;
+    total = total + (value - other);
+    total = total + (18 - (7 - 2));
+    value = 19 - 18;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 58;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 7) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(5, subtract(11, 8));
+    other = magnitude(-4);
+    value = clamp(value - other, 8);
+    total = total + value;
+    value = 6 - 7;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-615-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(4);
+    other = sumTo(5);
+    total = total + (value + other);
+    flag = (8 - 3) >= (-2);
+    if (flag) {
+        total = total + add(8, 3);
+    } else {
+        total = total + subtract(3, 8);
+    }
+    count = 0;
+    value = 0;
+    while (count < 23) {
+        value = add(value, clamp(count, 4));
+        count = count + 1;
+    }
+    total = total + value;
+    register(10);
+    value = register(5);
+    total = total + value;
+    text = "anrop-" + 10;
+    if (text < "z") {
+        total = total + 4;
+    }
+    value = (11 + 6) - (5 - 10);
+    other = -(10 + 5) + 6;
+    total = total + (value - other);
+    total = total + (11 - (6 - 5));
+    value = 12 - 13;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 27;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 3) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(15, subtract(10, 4));
+    other = magnitude(-1);
+    value = clamp(value - other, 4);
+    total = total + value;
+    value = 16 - 16;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-625-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(5);
+    other = sumTo(9);
+    total = total + (value + other);
+    flag = (18 - 2) >= (-5);
+    if (flag) {
+        total = total + add(18, 2);
+    } else {
+        total = total + subtract(2, 18);
+    }
+    count = 0;
+    value = 0;
+    while (count < 33) {
+        value = add(value, clamp(count, 7));
+        count = count + 1;
+    }
+    total = total + value;
+    register(3);
+    value = register(4);
+    total = total + value;
+    text = "anrop-" + 3;
+    if (text < "z") {
+        total = total + 7;
+    }
+    value = (4 + 5) - (1 - 7);
+    other = -(7 + 1) + 5;
+    total = total + (value - other);
+    total = total + (4 - (5 - 1));
+    value = 5 - 5;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 37;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 6) {
+        inner = 0;
+        while (inner < 5) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(8, subtract(9, 7));
+    other = magnitude(-11);
+    value = clamp(value - other, 7);
+    total = total + value;
+    value = 9 - 8;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-635-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(6);
+    other = sumTo(13);
+    total = total + (value + other);
+    flag = (11 - 12) >= (-1);
+    if (flag) {
+        total = total + add(11, 12);
+    } else {
+        total = total + subtract(12, 11);
+    }
+    count = 0;
+    value = 0;
+    while (count < 43) {
+        value = add(value, clamp(count, 3));
+        count = count + 1;
+    }
+    total = total + value;
+    register(13);
+    value = register(3);
+    total = total + value;
+    text = "anrop-" + 13;
+    if (text < "z") {
+        total = total + 3;
+    }
+    value = (14 + 4) - (4 - 4);
+    other = -(4 + 4) + 4;
+    total = total + (value - other);
+    total = total + (14 - (4 - 4));
+    value = 15 - 14;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 47;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 9) {
+        inner = 0;
+        while (inner < 7) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(18, subtract(8, 3));
+    other = magnitude(-8);
+    value = clamp(value - other, 3);
+    total = total + value;
+    value = 19 - 20;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-645-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(7);
+    other = sumTo(10);
+    total = total + (value + other);
+    flag = (4 - 11) >= (-4);
+    if (flag) {
+        total = total + add(4, 11);
+    } else {
+        total = total + subtract(11, 4);
+    }
+    count = 0;
+    value = 0;
+    while (count < 53) {
+        value = add(value, clamp(count, 6));
+        count = count + 1;
+    }
+    total = total + value;
+    register(6);
+    value = register(2);
+    total = total + value;
+    text = "anrop-" + 6;
+    if (text < "z") {
+        total = total + 6;
+    }
+    value = (7 + 3) - (7 - 1);
+    other = -(1 + 7) + 3;
+    total = total + (value - other);
+    total = total + (7 - (3 - 7));
+    value = 8 - 9;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 57;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 5) {
+        inner = 0;
+        while (inner < 9) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(11, subtract(7, 6));
+    other = magnitude(-5);
+    value = clamp(value - other, 6);
+    total = total + value;
+    value = 12 - 12;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-655-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(8);
+    other = sumTo(14);
+    total = total + (value + other);
+    flag = (14 - 10) >= (-7);
+    if (flag) {
+        total = total + add(14, 10);
+    } else {
+        total = total + subtract(10, 14);
+    }
+    count = 0;
+    value = 0;
+    while (count < 22) {
+        value = add(value, clamp(count, 2));
+        count = count + 1;
+    }
+    total = total + value;
+    register(16);
+    value = register(12);
+    total = total + value;
+    text = "anrop-" + 16;
+    if (text < "z") {
+        total = total + 2;
+    }
+    value = (17 + 2) - (3 - 11);
+    other = -(11 + 3) + 2;
+    total = total + (value - other);
+    total = total + (17 - (2 - 3));
+    value = 18 - 18;
+    if (value > 0) {
+        total = total + value;
+    } else if (value == 0) {
+        total = total + 2;
+    } else {
+        total = total - value;
+    }
+    value = 26;
+    count = 0;
+    while (value > 0) {
+        count = count + value;
+        value = value - 1;
+    }
+    total = total + count;
+    count = 0;
+    value = 0;
+    while (count < 8) {
+        inner = 0;
+        while (inner < 11) {
+            if (inner < count) {
+                value = value + 2;
+            } else {
+                value = value + 1;
+            }
+            inner = inner + 1;
+        }
+        count = count + 1;
+    }
+    total = total + value;
+    value = add(4, subtract(6, 9));
+    other = magnitude(-2);
+    value = clamp(value - other, 9);
+    total = total + value;
+    value = 5 - 4;
+    text = label(value);
+    if (text == "positiv") {
+        total = total + 3;
+    } else if (text == "noll") {
+        total = total + 2;
+    } else {
+        total = total + 1;
+    }
+    text = "kod-665-" + value;
+    if (text != "") {
+        total = total + 1;
+    }
+    value = triangular(0);
+    other = sumTo(2);
+    total = total + (value + other);
+    total = total + (4 - 1);
+    return total;
+}
+let result = run();
+print("Resultat: " + (result + visits));
