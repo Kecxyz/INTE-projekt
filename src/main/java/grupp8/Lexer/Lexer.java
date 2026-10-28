@@ -53,9 +53,7 @@ public class Lexer {
 
         String value = source.substring(start, position);
 
-        return new Token(
-                TokenType.INTEGER, value, startLine, startColumn
-        );
+        return new Token(TokenType.INTEGER, value, startLine, startColumn);
     }
 
     private Token readIdentifier() {
@@ -103,6 +101,14 @@ public class Lexer {
         return new Token(TokenType.STRING, value, startLine, startColumn);
     }
 
+    private boolean matchEqualSign() {
+        if (peek() != '=') {
+            return false;
+        }
+        advance();
+        return true;
+    }
+
     public List<Token> tokenize() {
         List<Token> tokens = new ArrayList<>();
 
@@ -124,86 +130,54 @@ public class Lexer {
                 continue;
             }
 
+            if (current == '"') {
+                tokens.add(readString());
+                continue;
+            }
+
             int tokenLine = line;
             int tokenColumn = column;
 
+            advance();
             switch (current) {
-                case '+' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.PLUS, "+", tokenLine, tokenColumn));
-                }
-                case '-' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.MINUS, "-", tokenLine, tokenColumn));
-                }
+                case '+' -> tokens.add(new Token(TokenType.PLUS, "+", tokenLine, tokenColumn));
+                case '-' -> tokens.add(new Token(TokenType.MINUS, "-", tokenLine, tokenColumn));
+                case ';' -> tokens.add(new Token(TokenType.SEMICOLON, ";", tokenLine, tokenColumn));
+                case ',' -> tokens.add(new Token(TokenType.COMMA, ",", tokenLine, tokenColumn));
+                case '(' -> tokens.add(new Token(TokenType.LEFT_PAREN, "(", tokenLine, tokenColumn));
+                case ')' -> tokens.add(new Token(TokenType.RIGHT_PAREN, ")", tokenLine, tokenColumn));
+                case '{' -> tokens.add(new Token(TokenType.LEFT_BRACE, "{", tokenLine, tokenColumn));
+                case '}' -> tokens.add(new Token(TokenType.RIGHT_BRACE, "}", tokenLine, tokenColumn));
                 case '=' -> {
-                    advance();
-                    if (!isAtEnd() && peek() == '=') {
-                        advance();
+                    if (matchEqualSign()) {
                         tokens.add(new Token(TokenType.EQUAL_EQUAL, "==", tokenLine, tokenColumn));
                     } else {
                         tokens.add(new Token(TokenType.ASSIGN, "=", tokenLine, tokenColumn));
                     }
                 }
-                case ';' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.SEMICOLON, ";", tokenLine, tokenColumn));
-                }
-                case ',' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.COMMA, ",", tokenLine, tokenColumn));
-                }
-                case '(' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.LEFT_PAREN, "(", tokenLine, tokenColumn));
-                }
-                case ')' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.RIGHT_PAREN, ")", tokenLine, tokenColumn));
-                }
-                case '{' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.LEFT_BRACE, "{", tokenLine, tokenColumn));
-                }
-                case '}' -> {
-                    advance();
-                    tokens.add(new Token(TokenType.RIGHT_BRACE, "}", tokenLine, tokenColumn));
-                }
                 case '<' -> {
-                    advance();
-                    if (!isAtEnd() && peek() == '=') {
-                        advance();
+                    if (matchEqualSign()) {
                         tokens.add(new Token(TokenType.LESS_EQUAL, "<=", tokenLine, tokenColumn));
                     } else {
                         tokens.add(new Token(TokenType.LESS_THAN, "<", tokenLine, tokenColumn));
                     }
                 }
                 case '>' -> {
-                    advance();
-                    if (!isAtEnd() && peek() == '=') {
-                        advance();
+                    if (matchEqualSign()) {
                         tokens.add(new Token(TokenType.GREATER_EQUAL, ">=", tokenLine, tokenColumn));
                     } else {
                         tokens.add(new Token(TokenType.GREATER_THAN, ">", tokenLine, tokenColumn));
                     }
                 }
                 case '!' -> {
-                    advance();
-                    if (!isAtEnd() && peek() == '=') {
-                        advance();
+                    if (matchEqualSign()) {
                         tokens.add(new Token(TokenType.NOT_EQUAL, "!=", tokenLine, tokenColumn));
                     } else {
-                        throw new LexerException(
-                                "Oväntat tecken '!' vid " + tokenLine + ":" + tokenColumn
-                        );
+                        throw new LexerException("Oväntat tecken '!' vid " + tokenLine + ":" + tokenColumn);
                     }
                 }
-                case '"' -> tokens.add(readString());
-
-                default -> throw new LexerException(
-                        "Oväntat tecken '" + current + "' vid "
-                                + tokenLine + ":" + tokenColumn
-                );
+                default ->
+                        throw new LexerException("Oväntat tecken '" + current + "' vid " + tokenLine + ":" + tokenColumn);
             }
         }
         tokens.add(new Token(TokenType.EOF, "", line, column));
