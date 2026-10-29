@@ -11,6 +11,20 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 class LexerTest {
+
+    @Test
+    void recognizeFunctionNameWithUnderscore() {
+        List<Token> tokens = new Lexer("func_var1").tokenize();
+        assertEquals("func_var1", tokens.getFirst().value());
+    }
+
+    @Test
+    void tokenToStringTest() {
+        List<Token> tokens = new Lexer("return").tokenize();
+
+        assertEquals("RETURN(return)at1:1", tokens.getFirst().toString());
+    }
+
     @Test
     void shouldRecognizeFunctionKeywordsAndComma() {
         List<Token> tokens = new Lexer("function return ,").tokenize();
@@ -84,8 +98,8 @@ class LexerTest {
         Lexer lexer = new Lexer("myVariable");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.IDENTIFIER, tokens.get(0).type());
-        assertEquals("myVariable", tokens.get(0).value());
+        assertEquals(TokenType.IDENTIFIER, tokens.getFirst().type());
+        assertEquals("myVariable", tokens.getFirst().value());
     }
 
     @Test
@@ -93,8 +107,8 @@ class LexerTest {
         Lexer lexer = new Lexer("letter");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.IDENTIFIER, tokens.get(0).type());
-        assertEquals("letter", tokens.get(0).value());
+        assertEquals(TokenType.IDENTIFIER, tokens.getFirst().type());
+        assertEquals("letter", tokens.getFirst().value());
     }
 
 
@@ -103,8 +117,8 @@ class LexerTest {
         Lexer lexer = new Lexer("\"Hello world\"");
         List<Token> tokens = lexer.tokenize();
 
-        assertEquals(TokenType.STRING, tokens.get(0).type());
-        assertEquals("Hello world", tokens.get(0).value());
+        assertEquals(TokenType.STRING, tokens.getFirst().type());
+        assertEquals("Hello world", tokens.getFirst().value());
     }
 
     @Test
