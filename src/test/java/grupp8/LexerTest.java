@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 class LexerTest {
@@ -208,11 +211,38 @@ class LexerTest {
 
     @Test
     void shouldRejectIntegerFollowedByLetter() {
-        Lexer lexer = new Lexer("let a = 23e");
+        Lexer lexer = new Lexer("23e");
 
         assertThrows(
                 LexerException.class,
                 lexer::tokenize
         );
+    }
+
+    @Test
+    void shouldRejectUnterminatedString() {
+        Lexer lexer = new Lexer("\"Hello world");
+        assertThrows(
+                LexerException.class,
+                lexer::tokenize);
+    }
+
+    @Test
+    void tokenizeInputFromFile() throws IOException {
+        Path testInput = Path.of("src/test/resources/LexerTestInput.txt");
+        Lexer lexer = new Lexer(Files.readString(testInput));
+        List<Token> tokens = lexer.tokenize();
+
+        assertEquals(TokenType.LET, tokens.get(0).type());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(1).type());
+        assertEquals(TokenType.ASSIGN, tokens.get(2).type());
+        assertEquals(TokenType.INTEGER, tokens.get(3).type());
+        assertEquals(TokenType.PLUS, tokens.get(4).type());
+        assertEquals(TokenType.INTEGER, tokens.get(5).type());
+        assertEquals(TokenType.SEMICOLON, tokens.get(6).type());
+        assertEquals(TokenType.PRINT, tokens.get(7).type());
+        assertEquals(TokenType.IDENTIFIER, tokens.get(8).type());
+        assertEquals(TokenType.SEMICOLON, tokens.get(9).type());
+        assertEquals(TokenType.EOF, tokens.get(10).type());
     }
 }
