@@ -6,6 +6,8 @@ import grupp8.Interpreter.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 // Tests interpreter nodes using visitor pattern.
 public class InterpreterTest {
@@ -268,5 +270,92 @@ public class InterpreterTest {
                 null
         );
         assertThrows(RuntimeException.class, () -> ifNode.accept(interpreter));
+    }
+    @Test
+    void testUndefinedVariableThrowsException() {
+
+        ASTNode node = new VarNode("missing");
+
+        assertThrows(RuntimeException.class,
+                () -> node.accept(interpreter));
+    }
+
+
+    @Test
+    void testAssignmentUsingAssertAll() {
+
+        ASTNode assign =
+                new AssignNode("score",
+                        new IntegerLiteralNode(100));
+
+        Object result = assign.accept(interpreter);
+
+        assertAll(
+                () -> assertEquals(100, result),
+                () -> assertEquals(
+                        100,
+                        runtimeEnvironment.getVariable("score")
+                )
+        );
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "Hello,World,HelloWorld",
+            "Java,17,Java17",
+            "A,B,AB"
+    })
+    void testStringConcatenationParameterized(
+            String left,
+            String right,
+            String expected) {
+
+        ASTNode node = new BinaryOpNode(
+                new StringLiteralNode(left),
+                '+',
+                new StringLiteralNode(right)
+        );
+
+        assertEquals(expected,
+                node.accept(interpreter));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "5,3,true",
+            "3,5,false",
+            "10,10,false",
+            "7,2,true"
+    })
+    void testGreaterThanParameterized(int left,
+                                      int right,
+                                      boolean expected) {
+
+        ASTNode compare = new CompareNode(
+                new IntegerLiteralNode(left),
+                ">",
+                new IntegerLiteralNode(right)
+        );
+
+        assertEquals(expected,
+                compare.accept(interpreter));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1,2,3",
+            "5,5,10",
+            "-2,8,6",
+            "100,200,300"
+    })
+    void testAdditionParameterized(int left, int right, int expected) {
+
+        ASTNode node = new BinaryOpNode(
+                new IntegerLiteralNode(left),
+                '+',
+                new IntegerLiteralNode(right)
+        );
+
+        assertEquals(expected, node.accept(interpreter));
     }
 }
